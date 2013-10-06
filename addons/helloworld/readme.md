@@ -5,7 +5,7 @@
 
 这个例子是演示如何能够 控制应用板上两个LED灯，通过本地 或者 远程都可以实现。
 
-![wifiIO](../addons_img/wifiIO_coredev_v2_back.png?raw=true)
+![wifiIO](../../addons_img/wifiIO_coredev_v2_back.png?raw=true)
 
 
 ##使用说明
