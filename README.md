@@ -1,5 +1,6 @@
-addon_v1
-========
+# wifi.io 轻量开放的云硬件
+
+## 插件（addon）开发SDK V1.0
 
 This is wifiIO module's addon SDK repository. 
 
@@ -11,9 +12,13 @@ This is wifiIO module's addon SDK repository.
 
 
 ***
-API文档可以访问 
+API文档可以访问：
 http://wifiIO.github.io/addon_sdk_v1/html/index.html
 
+github主页：
+http://wifiIO.github.io/addon_sdk_v1
+
 ***
-Check wifi.io for module's detailed information.
+
+
 

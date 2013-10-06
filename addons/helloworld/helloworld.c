@@ -1,3 +1,14 @@
+
+/**
+ * @file			helloworld.c
+ * @brief			wifiIO测试程序-helloworld
+ *	这个例子是演示如何能够 控制应用板上两个LED灯，通过本地 或者 远程实现。
+ *	两盏LED灯实际上就连接到IO1和IO2，提供给用户来作为程序运行的状态指示。
+ * @author			dy@wifi.io
+*/
+
+
+
 #include "include.h"
 
 

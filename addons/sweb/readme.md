@@ -1,62 +1,62 @@
-swebʹ��˵��
-==================
+﻿#SerialWeb: 实现浏览器与串口的交互程序
 
-��Ҫ
-----
-sweb��������ṩhttpd�Դ��ڿ��Ƶ�֧�֡�sweb��װ���к󣬿��Զ�http���񷢲�GET����POST��ʽ����ģ�鴮�ڡ�
 
-ǰ�߿���ֱ�����������ַ�������룬���̻�ȡ��Ӧ����������Ҫʹ��javascript��д��Ӧ�ű�ͨ��AJAX��ʽ��ȡ���ݣ�ǰ�߼򵥷��㣬����Ӧ����wap������ϣ����߹������ǿ�������������½�����
+##概述
 
-���ٲ���
---------
-1. ��װsweb.add�����ģ�飬ȷ�����Ѿ������أ�
-2. ���Զ̽�ģ�鴮��2�շ����ţ�
-3. ���������ַ�����룬���磺
+sweb插件用来提供httpd对串口控制的支持。sweb安装运行后，可以对http服务发布GET或者POST方式访问模块串口。
+
+前者可以直接在浏览器地址栏里输入，即刻获取回应。而后者需要使用javascript编写相应脚本通过AJAX方式获取数据；前者简单方便，可以应用在wap浏览器上；后者功能灵活强大，利于数据上下交换。
+
+##快速测试
+
+1. 安装sweb.add插件到模块，确定其已经被加载；
+2. 可以短接模块串口2收发引脚；
+3. 在浏览器地址栏输入，例如：
 http://192.168.x.x/logic/sweb/serial?target=hello&wait=1000
-�س���һ���Ӻ󣬱��������������ڿ����������Ǳ��ش����ַ�����hello����
+回车，一秒钟后，便可以在浏览器窗口看到发出但是被回传的字符串“hello”。
 
-�ò�����ʾ��ͨ��GET��ʽ��ģ��������ݽ�����
+该测试演示了通过GET方式与模块进行数据交换。
 
-���������ο�Ӧ�õ���Ӧҳ�档
+更多测试请参考应用的相应页面。
 
-ʹ��˵��
---------
+##使用说明
 
-**��GET��ʽ�봮�����ݽ���**
 
-��ģ��http����������GET����Ŀ���ǣ�
+**用GET方式与串口数据交换**
+
+向模块http服务器发出GET请求，目标是：
 
 http://192.168.1.x/logic/sweb/serial?target=hello&wait=1000
 
-֧�ֲ����ֶ����£�
+支持参数字段如下：
 
-* target: �ڶ�ȡ��������֮ǰ��ģ�鷢�͸��ַ��������ڡ�ʡ�Ըò�����������Ӵ���buf�ж�ȡһ�����ݡ�
-* urlenc: �������ݽ����Ƿ�ʹ��url���뷽ʽ����ѡ true/false��ʾ����urlenc=true��ʡ�Ըò���ȱʡ�ǲ��õ�url���룻������url����룬�뿴β��˵����
-��GET��ʽ�� ������ѡ������target�������ַ������н��룬�����Ƕ�ģ�鷵�ص����ݴ����б��롣
-* wait: ����Ⱥ򴮿ڽ��յ��ʱ�䣬��ʱ�䴰�������д��ڷ��ص����ݶ��ᱻ���������������λms����Χ0��60000��ʾ����wait=1000��ʡ�Ըò���ȱʡ��0��
-* clean: ָ���Ƿ��ڷ���target�ִ�ǰ������еĻ���������ڽ��ջ��棬��ѡ true/false��ʾ������clean=true����ʡ�Ըò���ȱʡ��false��
-* mime: ���巵�����ͣ�content-type������ѡ���±���ʾ������mime=json����ʡ�Ըò���ȱʡ�ǡ�text/html����ϸ�ڼ����桰http������mime���ͱ��������
+* target: 在读取串口数据之前，模块发送该字符串到串口。省略该参数，则仅仅从串口buf中读取一次数据。
+* urlenc: 定义数据交换是否使用url编码方式，可选 true/false，示例：urlenc=true，省略该参数缺省是不用到url编码；（关于url编解码，请看尾部说明）
+在GET方式中 开启该选项，不会对target参数的字符串进行解码，仅仅是对模块返回的数据串进行编码。
+* wait: 定义等候串口接收的最长时间，该时间窗口中所有串口返回的数据都会被反馈至浏览器，单位ms，范围0～60000，示例：wait=1000。省略该参数缺省是0。
+* clean: 指定是否在发送target字串前（如果有的话）清除串口接收缓存，可选 true/false，示例：“clean=true”，省略该参数缺省是false；
+* mime: 定义返回类型（content-type），可选如下表，示例：“mime=json”，省略该参数缺省是“text/html”；细节见下面“http服务器mime类型编码表”；
 
 
 ****************
 
 
-**POST��ʽ�봮�����ݽ���**
+**POST方式与串口数据交换**
 
-��GET��ʽ���ƣ�POSTĿ�����磺
+和GET方式类似，POST目标类如：
 http://192.168.1.x/logic/sweb/serial?wait=1000&clean=true
 
-֧�ֲ����ֶ����£�
+支持参数字段如下：
 
-* urlenc: �������ݽ����Ƿ�ʹ��url���뷽ʽ����ѡ true/false��ʾ����urlenc=true��ʡ�Ըò���ȱʡ�ǲ��õ�url���룻������url����룬�뿴β�������½ڣ�
-POST��ʽ�и�ѡ����POST����body�����ݽ��н��룬Ҳͬʱ��ģ�鷵�ص����ݽ��б��롣
-* wait: ����Ⱥ򴮿ڽ��յ��ʱ�䣬��ʱ�䴰�������д��ڷ��ص����ݶ��ᱻ���������������λms����Χ0��60000��ʾ����wait=1000��ʡ�Ըò���ȱʡ��0��
-* clean: ָ���Ƿ��ڷ���target�ִ�ǰ������еĻ���������ڽ��ջ��棬��ѡ true/false��ʾ������clean=true����ʡ�Ըò���ȱʡ��false��
-* mime: ���巵�����ͣ�content-type������ѡ���±���ʾ������mime=json����ʡ�Ըò���ȱʡ�ǡ�text/html����ϸ�ڼ����桰http������mime���ͱ��������
+* urlenc: 定义数据交换是否使用url编码方式，可选 true/false，示例：urlenc=true，省略该参数缺省是不用到url编码；（关于url编解码，请看尾部附属章节）
+POST方式中该选项，会对POST请求body的内容进行解码，也同时对模块返回的数据进行编码。
+* wait: 定义等候串口接收的最长时间，该时间窗口中所有串口返回的数据都会被反馈至浏览器，单位ms，范围0～60000，示例：wait=1000。省略该参数缺省是0；
+* clean: 指定是否在发送target字串前（如果有的话）清除串口接收缓存，可选 true/false，示例：“clean=true”，省略该参数缺省是false；
+* mime: 定义返回类型（content-type），可选如下表，示例：“mime=json”，省略该参数缺省是“text/html”；细节见下面“http服务器mime类型编码表”；
 
 ****************
 
-**http������mime���ͱ����**
+**http服务器mime类型编码表**
 
 * html: "text/html"
 * gif: "image/gif"
@@ -72,36 +72,42 @@ POST��ʽ�и�ѡ����POST����body�����ݽ��н��룬Ҳͬʱ��ģ�鷵�ص����ݽ��б���
 * json: "application/json"
 
 
-����˵����ʹ��URL�����봮�ڽ�������
+补充说明：使用URL编码与串口交换数据
 --------
-���������ȱʡ��Դ������ַ�����utf8��ʽ���б��룬����û�а취���������Ľ�������������ݷ��͵�ģ��Ĵ��ڣ�ģ�鴮�ڷ��صĶ�������Ҳ�޷�����������մ�����Ϊ�˽��������⣬����ʹ��URL���������������⡣
+由于浏览器缺省会对处理的字符采用utf8方式进行编码，所以没有办法随心所欲的将任意二进制数据发送到模块的串口，模块串口返回的二进制流也无法被浏览器接收处理，为了解决这个问题，可以使用URL编码来解决这个问题。
 
-URLCode���뷽ʽ�ܼ򵥣���������һ���ַ�������ơ�" "���ո��滻Ϊ"+"��Ӣ����ĸ�����֡�"-"��"."��"_"��"~"���䣬֮�����������ַ�����ʹ��"%XY"��ʽֱ��������16���Ʊ���ֵ���ɡ�
-���磬��hello �й��������Ϊ��hello+%e4%b8%ad%e5%9b%bd����
+URLCode编码方式很简单，其类似于一种字符替代机制。" "（空格）替换为"+"，英文字母、数字、"-"、"."、"_"、"~"不变，之外其他所有字符，都使用"%XY"方式直接设置其16进制编码值即可。
+例如，“hello 中国”编码后为“hello+%e4%b8%ad%e5%9b%bd”。
 
-wifiIOģ��֧��URL����룬��������������������������ʹ��ڼ䴫��������������ݡ�
+wifiIO模块支持URL编解码，利用这种能力，可以在浏览器和串口间传递任意二进制数据。
 
-������URLEncode��ʽ�����ݽ����������£�
+不采用URLEncode方式的数据交互过程如下：
 
-* �����ҳ�����룺abc����
-* �ڲ�utf8����Ϊ��61 62 63 (abc)E4 B8 AD (��)E6 96 87 (��)
-* wifiIO������գ�61 62 63 E4 B8 AD E6 96 87
-* wifiIO���������61 62 63 E4 B8 AD E6 96 87
+* 浏览器页面输入：abc中文
+* 内部utf8编码为：61 62 63 (abc)E4 B8 AD (中)E6 96 87 (文)
+* wifiIO网络接收：61 62 63 E4 B8 AD E6 96 87
+* wifiIO串口输出：61 62 63 E4 B8 AD E6 96 87
 
-����URLEncode��ʽ�����ݽ����������£�
+采用URLEncode方式的数据交互过程如下：
 
-������͵�ģ�飺
+浏览器送到模块：
 
-* �����ҳ�����룺%E4%B8%AD
-* �ڲ�utf8����Ϊ��%E4%B8%AD
-* wifiIO������գ�%E4%B8%AD
-* wifiIO���������E4 B8 AD
+* 浏览器页面输入：%E4%B8%AD
+* 内部utf8编码为：%E4%B8%AD
+* wifiIO网络接收：%E4%B8%AD
+* wifiIO串口输出：E4 B8 AD
 
 
-ģ�鵽�������
+模块到浏览器：
 
-* wifiIO�������룺00 01 02
-* wifiIO���緢�ͣ�%00%01%02
-* ��������գ�%00%01%02 ����ʱ�������js�������ִ��γ�byte���飩
+* wifiIO串口输入：00 01 02
+* wifiIO网络发送：%00%01%02
+* 浏览器接收：%00%01%02 （这时便可以用js来处理字串形成byte数组）
+
+****
+更多细节请参考源代码。
+
+20131006
+问题和建议请email: dy@wifi.io 
 
 
