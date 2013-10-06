@@ -3,13 +3,16 @@
 
 ##概述
 
-这个例子是演示通过PWM控制3色RGB LED灯。同时演示了如何解析稍微复杂点的json请求。
+![RGB_LED](../addons_img/RGB_LED.jpg?raw=true)
 
+这个例子是演示通过PWM控制3色RGB LED灯。同时演示了如何解析稍微复杂点的json请求。
 
 
 ##使用说明
 
 代码头部宏定义中定义了使用到的PWM通道，可以通过应用板上的IO引脚指示连接 RGB LED模块。
+
+![wifiIO](../addons_img/wifiIO_pin_map.png?raw=true)
 
 ###编译、部署和运行
 
