@@ -1,0 +1,21 @@
+#####################
+# ¹ıÂËÎÄ¼ş 
+#####################
+include/
+src_inst/
+gh-pages/
+addons_hidden/
+
+include.h
+add_sdk_build.bat
+
+*.exe
+*.ld
+makefile
+built.bat
+
+*.o
+*.map
+objdump
+readelf
+
