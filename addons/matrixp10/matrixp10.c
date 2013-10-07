@@ -73,7 +73,11 @@ void byte_out(u8_t dat)
 	}
 } 
 
-
+/*
+P10单元板为32x16的分辨率。
+竖向分为4个panel，每个panel 4个点高度，Panel由A、B引脚指定；
+单一panel内，使用STB信号切换每一行，一行内横向32个CLK节拍，同时输出DAT设置每一点数据。
+*/
 
 //整屏显示 
 void update() 
@@ -245,8 +249,6 @@ int main(int argc, char* argv[])
 	PIN_OE_HIGH;
 	PIN_DAT_LOW;
 
-
-//	api_tim.tim6_init(10000000);	//初始化定时器6 0.1us为单位
 
 	rectangle(0,0,31,15,1);
 	circle(15,8,4,1);

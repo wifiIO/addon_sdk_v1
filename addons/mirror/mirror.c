@@ -1,3 +1,13 @@
+/**
+ * @file			mirror.c
+ * @brief			第一届硬件黑客马拉松冠军作品
+ *					http://www.csdn.net/article/2013-08-25/2816687-xiaomi-HAXLR8on-in-shenzhen
+ *					http://www.csdn.net/article/2013-08-28/2816722-Hardware-Hackathon-Documentary
+ *					http://wifi.io/blog.php?id=523abac3a4c32057613ee44c
+ * @author			dy@wifi.io
+*/
+
+
 #include "include.h"
 
 
@@ -726,6 +736,7 @@ int main(int argc, char* argv[])
 
 
 /*
+下面的这个接口 可以通过模块自己的委托接口测试界面来调试。
 {
 	"method":"mirror.msg",
 	"params":"hello"
@@ -758,6 +769,7 @@ exit_err:
 
 
 /*
+	这个接口用于下行通知模块更改天气状态
 {
 	"method":"mirror.weather",
 	"params":{"temperature":34, "day":"S"/"C"/"R"}

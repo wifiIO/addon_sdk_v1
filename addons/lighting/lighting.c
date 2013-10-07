@@ -1,4 +1,16 @@
 
+/**
+ * @file			lighting.c
+ * @brief			wifiIO驱动led的程序
+ *	
+ *	
+ * @author			dy@wifi.io
+*/
+
+
+
+
+
 #include "include.h"
 
 #define BRIGHTNESS(lv) (0.11f*math.pow(1.07f,lv))	//google "y = 0.11*1.07^x"
@@ -342,65 +354,6 @@ load_abort:
 */
 }
 
-
-void thread_a01(void)
-{
-	api_io.init(LT01, OUT_PUSH_PULL);
-	api_io.init(LT02, OUT_PUSH_PULL);
-	api_io.init(LT03, OUT_PUSH_PULL);
-	api_io.init(LT04, OUT_PUSH_PULL);
-	api_io.init(LT05, OUT_PUSH_PULL);
-	api_io.init(LT06, OUT_PUSH_PULL);
-	api_io.init(LT07, OUT_PUSH_PULL);
-	api_io.init(LT08, OUT_PUSH_PULL);
-
-
-
-	return;
-}
-
-/*
-所有I/O 都能实现PWM调光，开是100%，关是0%输出
-*/
-void thread_a02(void)
-{
-
- 	 api_pwm.init(RGB1_Z, 600, 100, 0);
- 	 api_pwm.init(RGB1_R, 600, 100, 0);
-	 api_pwm.init(RGB1_G, 600, 100, 0);
-	 api_pwm.init(RGB1_B, 600, 100, 0);
-
- 	 api_pwm.init(RGB2_Z, 600, 100, 0);
- 	 api_pwm.init(RGB2_R, 600, 100, 0);
-	 api_pwm.init(RGB2_G, 600, 100, 0);
-	 api_pwm.init(RGB2_B, 600, 100, 0);
-
- 	 api_pwm.start(RGB1_R);
-	 api_pwm.start(RGB1_G);
-	 api_pwm.start(RGB1_B);
-
- 	 api_pwm.start(RGB2_R);
-	 api_pwm.start(RGB2_G);
-	 api_pwm.start(RGB2_B);
-
-
-	return;
-}
-void thread_a03(void)
-{
-
-	return;
-}
-void thread_a04(void)
-{
-
-	return;
-}
-void thread_a05(void)
-{
-
-	return;
-}
 
 
 
