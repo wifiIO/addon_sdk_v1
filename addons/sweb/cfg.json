@@ -1,0 +1,3 @@
+{	"enable":true,
+	"serial":{"baud":115200,"bits":"8bit","sbits":"1bit","parity":"none","rs485":false}
+}

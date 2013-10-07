@@ -32,12 +32,14 @@ CLK，DIN和 CS
 
 您可以在模块的文件系统中建立/app/max7219/的文件夹，将这两个文件（还有max7219.add）上传到该目录。
 
-通过浏览器 模块的网页界面，打开 http://192.168.1.xxx/app/max7219/index.htm，便可以通过页面操作点阵模块了。
+通过浏览器 模块的网页界面，打开 
+http://192.168.1.xxx/app/max7219/index.htm
+便可以通过页面操作点阵模块了。
 
 
 祝玩的开心！
 
-![max7219](../../addons_img/max7219_smile.jpg?raw=true)
+![max7219](../../addons_img/max7219_smile.jpg)
 
 
 

@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text.html; charset=UTF-8" http-equiv="Content-Type"/>
+<link href="/css/common.css" rel="stylesheet" media="screen">
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon" >
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="/js/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+<div id="top" class="navbar navbar-inverse">
+<div class="navbar-inner">
+<div class="container" style="width:960px;margin:0 auto;">
+<a class="brand" href="/index.html">W!F!.IO</a>
+<div class="nav-collapse">
+<ul class="nav">
+<li><a href="/index.html">首页</a></li>
+<li><a href="/setup.html">基础设置</a></li>
+<li class="active"><a href="/app/wifiIO/index.html">应用程序</a></li>
+<li><a href="/cloud.html">云服务</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="wrap" class="container">
+
+
+
+	<div class="alert alert-info">
+	<h1>SWEB</h1>
+	<h4 style="margin:15px;">——通过网页控制串行口</h4>
+	</div>
+
+
+
+	<ul id="tab" class="nav nav-tabs">
+		<li class="active"><a href="#tab_pane_main" data-toggle="tab">应用主页</a></li>
+		<li><a href="#tab_pane_serial_test" data-toggle="tab">测试界面</a></li>
+
+		<li><a href="#tab_pane_config" data-toggle="tab">参数设置</a></li>
+		<li><a href="#tab_pane_note" data-toggle="tab">使用说明</a></li>
+	</ul>
+
+	<div class="tab-content conf-box">
+
+		<div class="tab-pane fade active in" id="tab_pane_main">
+			<div class="form-horizontal well">
+				<h3>测试之前需要判断安装状态</h3>
+				<p>运行状态若为 loaded，那么可以进行Sweb的相关测试。</p>
+				<dl class="dl-horizontal">
+					<dt>运行状态：</dt><dd id="status_run">未知状态</dd>
+				</dl>
+
+				<p style="text-align:center;">
+					<a class="btn btn-info" href="###" id="sys_status_action_update"><i class="icon-refresh icon-white"></i> 刷新</a>
+				</p>
+			</div>
+
+		</div>
+
+		<div class="tab-pane fade" id="tab_pane_serial_test">
+
+			<div class="form-horizontal well">
+				<h4>GET方式与串口交换数据：</h4>
+
+				<div class="alert alert-success">
+				<p>点击连接将在串口输出"send_me_to_serial"，返回串口接收缓冲中的数据，在打开的页面中显示。</p>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label">点击测试：</label>
+					<div class="controls">
+						<a href="/logic/sweb/serial?target=send_me_to_serial">/logic/sweb/serial?target=send_me_to_serial</a>
+				 	  	<span class="help-inline"></span>
+					</div>
+				</div>
+
+				<p><span class="label label-info">提示</span>&nbsp GET方式是与串口数据交换的最简单的办法，可以不使用Javascript。</p>
+
+			</div>
+
+			<div class="form-horizontal well">
+				<h4>POST方式与串口交换数据：</h4>
+				<div class="alert alert-success">
+					<p>选择下面的参数 并点击按钮发起 POST 请求。</p>
+					<h4 id="id_sweb_serial_post_target"></h4>
+				</div>
+
+				<div class="control-group" id="sweb_param_select_wait">
+					<label class="control-label">wait：</label>
+					<div class="controls">
+				 		<select class="span2" >
+							<option value=null selected>不使用该参数</option>
+					 	  	<option value=500>0.5秒</option>
+					 	  	<option value=1000>1秒</option>
+					 	  	<option value=3000>3秒</option>
+					 	  	<option value=5000>5秒</option>
+						</select>
+				 	  	<span class="help-inline"></span>
+					</div>
+				</div>
+				<div class="control-group" id="sweb_param_select_clean">
+					<label class="control-label">clean：</label>
+					<div class="controls">
+				 		<select class="span2">
+							<option value=null selected>不使用该参数</option>
+					 	  	<option value=true>true</option>
+					 	  	<option value=false>false</option>
+						</select>
+				 	  	<span class="help-inline"></span>
+			 	  </div>
+				</div>
+				<div class="control-group" id="sweb_param_select_urlenc">
+					<label class="control-label">urlenc：</label>
+					<div class="controls">
+				 		<select class="span2">
+							<option value=null selected>不使用该参数</option>
+					 	  	<option value=true>true</option>
+					 	  	<option value=false>false</option>
+						</select>
+			 	  		<span class="help-inline"></span>
+					</div>
+				</div>
+				<div class="control-group" id="sweb_param_select_mime">
+					<label class="control-label">mime：</label>
+					<div class="controls">
+				 		<select class="span2">
+							<option value=null selected>不使用该参数</option>
+							<option value="html">text/html</option>
+							<option value="gif">image/gif</option>
+							<option value="png">image/png</option>
+							<option value="jpg">image/jpeg</option>
+							<option value="bmp">image/bmp</option>
+							<option value="ico">image/x-icon</option>
+							<option value="dat">application/octet-stream</option>
+							<option value="js">application/x-javascript</option>
+							<option value="css">text/css</option>
+							<option value="swf">application/x-shockwave-flash</option>
+							<option value="xml">text/xml</option>
+							<option value="json">application/json</option>
+						</select>
+			 	  		<span class="help-inline"></span>
+			 	  	</div>
+				</div>
+				<div class="control-group" id="sweb_serial_text_send">
+					<label class="control-label">发送数据：</label>
+					<div class="controls">
+						<textarea class="input-xlarge" id="textarea" rows="3" style="margin: 0px; width: 320px; height: 72px; ">
+send me to serial</textarea>
+			 	  		<span class="help-inline"></span>
+					</div>
+				</div>
+				<div class="control-group" id="sweb_serial_text_recv">
+					<label class="control-label">接收数据：</label>
+					<div class="controls">
+						<textarea class="input-xlarge" id="textarea" rows="3" style="margin: 0px; width: 320px; height: 72px; "></textarea>
+			 	  		<span class="help-inline"></span>
+					</div>
+				</div>
+
+				<p style="text-align:center;">
+					<a class="btn btn-info" href="###" id="sweb_serial_action_post"><i class="icon-ok icon-white"></i> 提交</a>
+				</p>
+
+				<p><span class="label label-info">提示</span>&nbsp POST方式与串口数据交换最为灵活，需要使用Javascript 和 AJAX方式。</p>
+
+
+			</div>
+
+		</div>
+
+
+		<div class="tab-pane fade" id="tab_pane_config">
+
+			<h3>串口设置</h3>
+			<div class="form-horizontal well">
+
+				<div class="control-group" id="cfg_text_serial_baud">
+		 	  	<label class="control-label">波特率：</label>
+			  	<div class="controls">
+		 	  		<input type="text" class="input-small" placeholder="请输入波特率" value="115200">
+		 	  		<span class="help-inline"></span>
+		 			</div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_bits">
+			  	<label class="control-label">传输字位长：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="8bits">8Bits</option>
+			 	  	<option value="9bits">9Bits</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_sbits">
+			  	<label class="control-label">停止位长：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="0.5bit">0.5Bits</option>
+			 	  	<option value="1bit">1Bits</option>
+			 	  	<option value="1.5bits">1.5Bits</option>
+			 	  	<option value="2bits">2Bits</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_parity">
+			  	<label class="control-label">奇偶校验：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="none">无</option>
+			 	  	<option value="odd">奇校验</option>
+			 	  	<option value="even">偶校验</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_rs485">
+			  	<label class="control-label">485模式：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="enable">使能</option>
+			 	  	<option value="disable">禁止</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+			</div>
+
+
+			<p style="text-align:center;">
+				<a class="btn btn-info" href="###" id="sys_cfg_action_update"><i class="icon-refresh icon-white"></i> 读取配置</a>
+				<a class="btn btn-info" href="###" id="sys_cfg_action_save"><i class="icon-ok icon-white"></i> 保存配置</a>
+				<a class="btn btn-info" href="###" id="sys_cfg_action_reset"><i class="icon-off icon-white"></i> 复位系统</a>
+			</p>
+
+
+
+
+		</div>
+
+		<div class="tab-pane fade" id="tab_pane_note">
+			<div class="well">
+				<h4>引脚占用说明</h4>
+				<p>本应用使用了Pin21、Pin27、Pin28。</p>
+				<dl class="dl-horizontal">
+					<dt>Pin21(IOP11)：</dt><dd>485芯片使能输出引脚（如果使能485模式）</dd>
+					<dt>Pin7(IOP03)：</dt><dd>串行接口TX</dd>
+					<dt>Pin6(IOP04)：</dt><dd>串行接口RX</dd>
+				</dl>
+				<img src="/img/wifiIO_pin_map.png" alt="wifiIO pin map" title="wifiIO_pin_map" border="0">
+			</div>
+
+			<div class="well">
+				<h4>开发者</h4>
+				<p>详细请参考相关文档。</p>
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+
+<div class="mini-tip" id="mini-tip"></div>
+<div id="shadow"></div>
+<div id="footer" class="footer">
+</div>
+
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="sweb.js"></script>
+
+</body>
+</html>
