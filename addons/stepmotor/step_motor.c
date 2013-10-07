@@ -19,7 +19,7 @@
 
 命令格式: 
 {
-	"method":"go",
+	"method":"stepmotor.go",
 	"params":{
 		"speed": 500,
 		"clockwise": true,
@@ -190,18 +190,20 @@ static int stepmotor_movement_arrange(nb_info_t* pnb, u32_t steps, u8_t clockwis
 
 
 ////////////////////////////////////////
-//委托接口的定义规则:
-// JSON_DELEGATE() 宏为函数添加后缀名称
-// __ADDON_EXPORT__ 宏将该符号定义为暴露的
-// 参数形式 上 可以输入一个json串，带有一个
-// 执行完成后的回调 及其附带上下文
-//
 // 该函数的运行上下文 是调用该委托接口的进程
 // httpd、otd 都可以调用该接口
-// 接口名称为 stepmotor.go
+// 接口名称为 stepmotor.go，类如:
+//{
+//	"method":"stepmotor.go",
+//	"params":{
+//		"speed": 500,
+//		"clockwise": true,
+//		"steps":4096
+//	}
+//}
 ////////////////////////////////////////
 
-int __ADDON_EXPORT__ JSON_DELEGATE(go)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)	//继承于fp_json_delegate_start
+int JSON_RPC(go)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)	//继承于fp_json_delegate_start
 {
 	int ret = STATE_OK;
 	char* err_msg = NULL;
@@ -353,7 +355,8 @@ int main(int argc, char* argv[])
 	LOG_INFO("main:Service starting...\r\n");
 
 
-	return ADDON_LOADER_GRANTED;
+	return ADDON_LOADER_ABORT;	//若到这里说明nb框架完全结束了，不需要驻留
+//	return ADDON_LOADER_GRANTED;
 err_exit:
 	return ADDON_LOADER_ABORT;
 }

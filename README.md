@@ -1,24 +1,34 @@
-# wifi.io ÇáÁ¿¿ª·ÅµÄÔÆÓ²¼ş
+ï»¿# wifi.io è½»é‡å¼€æ”¾çš„äº‘ç¡¬ä»¶
 
-## ²å¼ş£¨addon£©¿ª·¢SDK V1.0
+## æ’ä»¶ï¼ˆaddonï¼‰å¼€å‘SDK V1.0
 
 This is wifiIO module's addon SDK repository. 
 
-* addons£ºÎÄ¼ş¼Ğ°üº¬Ó¦ÓÃ²å¼ş£¬ÆäÖĞº¬ÓĞ´úÂëÊ¾ÀıºÍÏàÓ¦ËµÃ÷¡£
-* addons_hidden£ºÔİÎ´·¢²¼³ÌĞò
-* doxygen£ºdoxygenÔ´ÎÄ¼ş
-* gh-pages£ºgithub·¢²¼Ò³Ãæ
-* include£ºÍ·ÎÄ¼ş
+* addonsï¼šæ–‡ä»¶å¤¹åŒ…å«åº”ç”¨æ’ä»¶ï¼Œå…¶ä¸­å«æœ‰ä»£ç ç¤ºä¾‹å’Œç›¸åº”è¯´æ˜ã€‚
+* addons_hiddenï¼šæš‚æœªå‘å¸ƒç¨‹åº
+* doxygenï¼šdoxygenæºæ–‡ä»¶
+* gh-pagesï¼šgithubå‘å¸ƒé¡µé¢
+* includeï¼šå¤´æ–‡ä»¶
+
+***
+åˆå­¦è€…å»ºè®®é˜…è¯»é¡ºåºï¼š
+
+1. helloworld
+2. helloRGB
+3. dht11
+4. ot_data
+5. è¿™é‡ŒåŸºæœ¬å°±å…¥é—¨å’¯ï¼Œå‰©ä¸‹çš„éšä¾¿çœ‹å•¦
 
 
 ***
-APIÎÄµµ¿ÉÒÔ·ÃÎÊ£º
+APIæ–‡æ¡£å¯ä»¥è®¿é—®ï¼š
 http://wifiIO.github.io/addon_sdk_v1/html/index.html
 
-githubÖ÷Ò³£º
+githubä¸»é¡µï¼š
 http://wifiIO.github.io/addon_sdk_v1
 
 ***
+wifi.io@2013
 
 
 
