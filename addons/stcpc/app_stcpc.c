@@ -1,4 +1,11 @@
 
+/**
+ * @file			app_stcpc.c
+ * @brief			串口转tcp客户端
+ *	
+ *	
+ * @author			dy@wifi.io
+*/
 
 
 #include "include.h"

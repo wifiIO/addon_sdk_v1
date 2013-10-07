@@ -39,7 +39,7 @@ u32_t last_U_tick = 0, last_D_tick = 0;
 	"params":"U"\"D" \"L"\"R" \"F"\"B"
 }
 */
-int __ADDON_EXPORT__ JSON_DELEGATE(steer)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)	//¼Ì³ÐÓÚfp_json_delegate_start
+int JSON_RPC(steer)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)	//¼Ì³ÐÓÚfp_json_delegate_start
 {
 	int ret = STATE_OK;
 	char* err_msg = NULL;
@@ -133,6 +133,8 @@ exit_err:
 	if(ack)jsmn.delegate_ack_err(ack, ctx, ret, err_msg);
 	return ret;
 }
+
+
 
 int main(int argc, char* argv[])
 {

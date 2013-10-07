@@ -1,3 +1,11 @@
+/**
+ * @file			ot_data.c
+ * @brief			wifiIO读取温湿度传感器DHT11上传云端
+ *	
+ *	
+ * @author			dy@wifi.io
+*/
+
 #include "include.h"
 
 #define DHT11_PIN WIFIIO_GPIO_16

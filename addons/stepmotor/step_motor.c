@@ -1,6 +1,18 @@
+/**
+ * @file			step_motor.c
+ * @brief			wifiIO驱动步进电机
+ *	驱动电机型号是28BYJ-48
+ *	淘宝有售: http://item.taobao.com/item.htm?id=6895887673
+ * @author			dy@wifi.io
+*/
 
 
 #include "include.h"
+
+#define STEPMOTOR_DRIVE_D1 WIFIIO_GPIO_01
+#define STEPMOTOR_DRIVE_D2 WIFIIO_GPIO_02
+#define STEPMOTOR_DRIVE_D3 WIFIIO_GPIO_03
+#define STEPMOTOR_DRIVE_D4 WIFIIO_GPIO_04
 
 /*
 模型:
@@ -44,25 +56,25 @@ const u8_t phase_bit_map[8] = { 1, 3, 2, 6, 4, 12, 8, 9};	//
 
 static void phase_activate(u8_t phase)
 {
-	if(phase_bit_map[phase] & 0x01)api_io.high(WIFIIO_GPIO_01);
-	else api_io.low(WIFIIO_GPIO_01);
+	if(phase_bit_map[phase] & 0x01)api_io.high(STEPMOTOR_DRIVE_D1);
+	else api_io.low(STEPMOTOR_DRIVE_D1);
 
-	if(phase_bit_map[phase] & 0x02)api_io.high(WIFIIO_GPIO_02);
-	else api_io.low(WIFIIO_GPIO_02);
+	if(phase_bit_map[phase] & 0x02)api_io.high(STEPMOTOR_DRIVE_D2);
+	else api_io.low(STEPMOTOR_DRIVE_D2);
 
-	if(phase_bit_map[phase] & 0x04)api_io.high(WIFIIO_GPIO_03);
-	else api_io.low(WIFIIO_GPIO_03);
+	if(phase_bit_map[phase] & 0x04)api_io.high(STEPMOTOR_DRIVE_D3);
+	else api_io.low(STEPMOTOR_DRIVE_D3);
 
-	if(phase_bit_map[phase] & 0x08)api_io.high(WIFIIO_GPIO_04);
-	else api_io.low(WIFIIO_GPIO_04);
+	if(phase_bit_map[phase] & 0x08)api_io.high(STEPMOTOR_DRIVE_D4);
+	else api_io.low(STEPMOTOR_DRIVE_D4);
 }
 
 static void phase_deactivate(void)
 {
-	api_io.low(WIFIIO_GPIO_01);
-	api_io.low(WIFIIO_GPIO_02);
-	api_io.low(WIFIIO_GPIO_03);
-	api_io.low(WIFIIO_GPIO_04);
+	api_io.low(STEPMOTOR_DRIVE_D1);
+	api_io.low(STEPMOTOR_DRIVE_D2);
+	api_io.low(STEPMOTOR_DRIVE_D3);
+	api_io.low(STEPMOTOR_DRIVE_D4);
 }
 
 static u8_t phase_next(u8_t phase, u8_t clockwise)
@@ -254,10 +266,10 @@ static  int enter(nb_info_t* pnb)
  {
 //	stepmotor_opt_t *opt = (stepmotor_opt_t*) api_nb.info_opt(pnb);
 
-	 api_io.init(WIFIIO_GPIO_01, OUT_PUSH_PULL);
-	 api_io.init(WIFIIO_GPIO_02, OUT_PUSH_PULL);
-	 api_io.init(WIFIIO_GPIO_03, OUT_PUSH_PULL);
-	 api_io.init(WIFIIO_GPIO_04, OUT_PUSH_PULL);
+	 api_io.init(STEPMOTOR_DRIVE_D1, OUT_PUSH_PULL);
+	 api_io.init(STEPMOTOR_DRIVE_D2, OUT_PUSH_PULL);
+	 api_io.init(STEPMOTOR_DRIVE_D3, OUT_PUSH_PULL);
+	 api_io.init(STEPMOTOR_DRIVE_D4, OUT_PUSH_PULL);
 
 	phase_deactivate();
 	//phase_activate(phase_bit_map[opt->phase]);
