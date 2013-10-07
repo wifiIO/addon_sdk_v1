@@ -5,7 +5,7 @@
 
 下面的例子要实现对DHT11模块的驱动，并且将其采集到的温湿度数据提交到云端。
 
-![dht11](../../addons_img/dht11.jpg?raw=true)
+![dht11](../../addons_img/dht11.jpg)
 
 补一下器件知识先：
 

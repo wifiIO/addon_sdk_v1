@@ -6,7 +6,7 @@
 Max7219芯片是一种段式LED显示模块的驱动芯片，可以使用作为8x8点阵的驱动器。
 其有一个类似于SPI的驱动接口，可以直接和wifiIO模块直接相连。
 
-![max7219](../../addons_img/max7219_module.jpg?raw=true)
+![max7219](../../addons_img/max7219_module.jpg)
 
 这个淘宝有售：
 
@@ -23,7 +23,7 @@ CLK，DIN和 CS
 * CLK: 时钟序列输入端。最大速率为10MHz.在时钟的上升沿，数据移入内部移位寄存器。只有当cs 端为低电平时时钟输入才有效。 
 * DIN: 串行数据输入端口。在时钟上升沿时数据被载入内部的16位寄存器。
 
-![max7219](../../addons_img/max7219_wifiIO.jpg?raw=true)
+![max7219](../../addons_img/max7219_wifiIO.jpg)
 
 包括 电源和地，一共需要连接5个引脚。
 

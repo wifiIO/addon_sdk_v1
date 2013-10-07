@@ -9,7 +9,7 @@
  
  本例演示如何驱动这种LED板。
  
- ![P10_led_panel](../../addons_img/led_panel_p10.jpg?raw=true)
+ ![P10_led_panel](../../addons_img/led_panel_p10.jpg)
 
  
 
@@ -19,7 +19,7 @@
 P10单元板为32x16的分辨率。
 wifiIO使用6个引脚实现对单元板的驱动，如下图：
 
-![P10_led_panel](../../addons_img/led_panel_p10_if12.jpg?raw=true)
+![P10_led_panel](../../addons_img/led_panel_p10_if12.jpg)
 
 A B  OE STB CLK DAT(R)
 

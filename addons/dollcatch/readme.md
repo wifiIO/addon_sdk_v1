@@ -9,7 +9,7 @@ http://wifi.io/demos.php
 
 wifiIO模组通过六个IO口控制六组继电器实现对原先三个双刀三掷开关的替代，实现了将娃娃机改造成为云端操控的目的
 
-![wifiIO](../../addons_img/dollcatch_pic_stroy_small.jpg?raw=true)
+![wifiIO](../../addons_img/dollcatch_pic_stroy_small.jpg)
 
 ****
 

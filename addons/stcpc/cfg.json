@@ -1,0 +1,5 @@
+{	"enable":true,
+	"net":{"domain":"","dip":"192.168.1.103", "dport":55552, "lport":55553}, 
+	"serial":{"baud":9600,"bits":"8bit","sbits":"1bit","parity":"none","rs485":false},
+	"holdtime":100
+}

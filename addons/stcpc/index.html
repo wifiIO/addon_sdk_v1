@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text.html; charset=UTF-8" http-equiv="Content-Type"/>
+<link href="/css/common.css" rel="stylesheet" media="screen">
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon" >
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="/js/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+<div id="top" class="navbar navbar-inverse">
+<div class="navbar-inner">
+<div class="container" style="width:960px;margin:0 auto;">
+<a class="brand" href="/index.html">W!F!.IO</a>
+<div class="nav-collapse">
+<ul class="nav">
+<li><a href="/index.html">首页</a></li>
+<li><a href="/setup.html">基础设置</a></li>
+<li class="active"><a href="/app/wifiIO/index.html">应用程序</a></li>
+<li><a href="/cloud.html">云服务</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="wrap" class="container">
+
+
+
+	<div class="alert alert-info">
+	<h1>Serial TCP client</h1>
+	<h4 style="margin:15px;">——串口 TCP客户端数据转换服务</h4>
+	</div>
+
+
+
+	<ul id="tab" class="nav nav-tabs">
+		<li class="active"><a href="#tab_pane_main" data-toggle="tab">应用主页</a></li>
+		<li><a href="#tab_pane_config" data-toggle="tab">参数设置</a></li>
+		<li><a href="#tab_pane_note" data-toggle="tab">使用说明</a></li>
+	</ul>
+
+	<div class="tab-content conf-box">
+
+		<div class="tab-pane fade active in" id="tab_pane_main">
+			<div class="form-horizontal well">
+				<h4>功能说明</h4>
+				<p>模块建立TCP客户端，连接指定目标。成功后，串口数据与服务器进行交换。</p>
+			</div>
+
+
+			<div class="form-horizontal well">
+				<h4>当前状态</h4>
+
+				<dl class="dl-horizontal">
+					<dt>服务状态：</dt><dd id="status_run">未知状态</dd>
+				</dl>
+				<dl class="dl-horizontal">
+					<dt>当前连接状态：</dt><dd id="stcpc_status_state">未知状态</dd>
+					<dt>服务器IP地址：</dt><dd id="stcpc_status_ip">xx.xx.xx.xx</dd>
+					<dt>转网络发送字节：</dt><dd id="stcpc_status_up_byte">0</dd>
+					<dt>转串口发送字节：</dt><dd id="stcpc_status_dn_byte">0</dd>
+				</dl>
+
+				<p><span class="label label-info">说明</span>&nbsp 点击刷新按钮更新状态数据</p>
+
+			</div>
+			<p style="text-align:center;">
+				<a class="btn btn-info" href="###" id="sys_status_action_update"><i class="icon-refresh icon-white"></i> 刷新</a>
+			</p>
+
+		</div>
+
+		<div class="tab-pane fade" id="tab_pane_config">
+
+			<h3>网络设置</h3>
+			<div class="form-horizontal well">
+
+				<div class="control-group" id="cfg_text_net_domain">
+			      <label class="control-label">目标服务器域名</label>
+			      <div class="controls">
+			        <input type="text" placeholder="IP填写时 域名可留空">
+			        <span class="help-inline"></span>
+			      </div>
+			    </div>
+
+				<div class="control-group" id="cfg_text_net_dip">
+					<label class="control-label">目标服务器IP：</label>
+				  <div class="controls">
+			 	  	<input type="text" placeholder="域名填写时 IP可留空">
+			 	  	<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+				<p><span class="label label-info">提示</span>&nbsp 目标IP或目标域名可以二选一填写，同时填充时 优先使用IP。</p>
+
+				<div class="control-group" id="cfg_text_net_dport">
+		 	  	<label class="control-label">目标端口：</label>
+			  	<div class="controls">
+		 	  		<input type="text" class="input-small" placeholder="必须填写">
+		 	  		<span class="help-inline"></span>
+		 			</div>
+				</div>
+
+
+
+				<div class="control-group" id="cfg_text_net_lport">
+		 	  	<label class="control-label">本地端口：</label>
+			  	<div class="controls">
+		 	  		<input type="text" class="input-small" placeholder="" value="55552">
+		 	  		<span class="help-inline"></span>
+		 			</div>
+				</div>
+
+			</div>
+
+			<h3>串口设置</h3>
+			<div class="form-horizontal well">
+
+				<div class="control-group" id="cfg_text_serial_baud">
+		 	  	<label class="control-label">波特率：</label>
+			  	<div class="controls">
+		 	  		<input type="text" class="input-small" placeholder="请输入波特率" value="115200">
+		 	  		<span class="help-inline"></span>
+		 			</div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_bits">
+			  	<label class="control-label">传输字位长：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="8bits">8Bits</option>
+			 	  	<option value="9bits">9Bits</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_sbits">
+			  	<label class="control-label">停止位长：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="0.5bit">0.5Bits</option>
+			 	  	<option value="1bit">1Bits</option>
+			 	  	<option value="1.5bits">1.5Bits</option>
+			 	  	<option value="2bits">2Bits</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_parity">
+			  	<label class="control-label">奇偶校验：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="none">无</option>
+			 	  	<option value="odd">奇校验</option>
+			 	  	<option value="even">偶校验</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_rs485">
+			  	<label class="control-label">485模式：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="enable">使能</option>
+			 	  	<option value="disable">禁止</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+			</div>
+
+			<h3>转发设置</h3>
+			<div class="form-horizontal well">
+
+				<div class="control-group" id="cfg_text_other_holdtime">
+			 	  	<label class="control-label">转发间隔时间：</label>
+				  	<div class="controls">
+			 	  		<input type="text" class="input-small" placeholder="单位是毫秒" value="100">
+			 	  		<span class="help-inline"></span>
+		 			</div>
+				</div>
+
+			</div>
+
+
+			<p style="text-align:center;">
+				<a class="btn btn-info" href="###" id="sys_cfg_action_update"><i class="icon-refresh icon-white"></i> 读取配置</a>
+				<a class="btn btn-info" href="###" id="sys_cfg_action_save"><i class="icon-ok icon-white"></i> 保存配置</a>
+				<a class="btn btn-info" href="###" id="sys_cfg_action_reset"><i class="icon-off icon-white"></i> 复位系统</a>
+			</p>
+
+
+
+
+		</div>
+
+		<div class="tab-pane fade" id="tab_pane_note">
+
+			<div class="well">
+				<p><span class="label label-info">提示</span>&nbsp <strong>目标IP和目标域名</strong></p>
+				<p>若设置了目标IP，程序加载后 将会直接连接该 IP地址；</p>
+				<p>若设置了目标域名，程序会在连接之前 先将其解析为IP地址，再实施连接；</p>
+				<p>两者同时填写时，会优先使用IP地址作为连接目标，忽略域名解析过程。</p>
+			</div>
+
+			<div class="well">
+				<h4>引脚占用说明</h4>
+				<p>本应用使用了Pin21、Pin27、Pin28。</p>
+				<dl class="dl-horizontal">
+					<dt>Pin21(IOP11)：</dt><dd>485芯片使能输出引脚（如果使能485模式）</dd>
+					<dt>Pin7(IOP03)：</dt><dd>串行接口TX</dd>
+					<dt>Pin6(IOP04)：</dt><dd>串行接口RX</dd>
+				</dl>
+				<img src="/img/wifiIO_pin_map.png" alt="wifiIO pin map" title="wifiIO_pin_map" border="0">
+			</div>
+
+			<div class="well">
+				<h4>开发者</h4>
+				<p><span class="label label-info">状态读取</span>&nbsp 使用<strong>/logic/wifiIO/invoke?target=stcpc.stcpc_status</strong>接口，可以访问名称为stcpc的addon的stcpc_status()函数，进而能够获得
+				{"up_byte":0,"dn_byte":0,"state":"connecting...","ip":"192.168.120.124"} 形式的json数据串。</p>
+
+
+				<p><span class="label label-info">配置读取</span>&nbsp 访问<strong>/app/stcpc/cfg.json</strong>即可以得到配置json数据。</p>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+
+<div class="mini-tip" id="mini-tip"></div>
+<div id="shadow"></div>
+<div id="footer" class="footer">
+</div>
+
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="stcpc.js"></script>
+
+</body>
+</html>

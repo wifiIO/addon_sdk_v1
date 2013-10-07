@@ -14,7 +14,7 @@ http://wifi.io/blog.php?id=523abac3a4c32057613ee44c
 用wifiIO模组做了一个可以显示天气信息和留言的镜子（memo mirror），并且可以将镜子前是否有人通知到手机侧。
 代码中包含了 驱动一块P6全彩单元板 和 红外发射和接收模块的内容。
  
-![P10_led_panel](../../addons_img/led_panel_p6rgb.jpg?raw=true)
+![P10_led_panel](../../addons_img/led_panel_p6rgb.jpg)
 
 可以在下面买到：
 
@@ -25,7 +25,7 @@ http://item.taobao.com/item.htm?id=8478666858
 
 下图说明了单元板的引脚定义：
 
-![P10_led_panel](../../addons_img/led_panel_p6rgb_if.jpg?raw=true)
+![P10_led_panel](../../addons_img/led_panel_p6rgb_if.jpg)
 
 代码首部定义了相应引脚的宏定义，按照定义内容一一连接即可。
 不包括 电源和地，一共需要13个引脚。

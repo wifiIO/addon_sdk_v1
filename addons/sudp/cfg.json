@@ -1,0 +1,5 @@
+{	"enable":true,
+	"net":{"dip":"", "dport":0, "lport":55555}, 
+	"serial":{"baud":9600,"bits":"8bit","sbits":"1bit","parity":"none","rs485":false},
+	"holdtime":100,"loadmax":1024
+}

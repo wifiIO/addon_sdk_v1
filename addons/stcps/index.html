@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text.html; charset=UTF-8" http-equiv="Content-Type"/>
+<link href="/css/common.css" rel="stylesheet" media="screen">
+<link rel="icon" href="/img/favicon.ico" type="image/x-icon" >
+	
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="/js/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+<div id="top" class="navbar navbar-inverse">
+<div class="navbar-inner">
+<div class="container" style="width:960px;margin:0 auto;">
+<a class="brand" href="/index.html">W!F!.IO</a>
+<div class="nav-collapse">
+<ul class="nav">
+<li><a href="/index.html">首页</a></li>
+<li><a href="/setup.html">基础设置</a></li>
+<li class="active"><a href="/app/wifiIO/index.html">应用程序</a></li>
+<li><a href="/cloud.html">云服务</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="wrap" class="container">
+
+
+
+	<div class="alert alert-info">
+	<h1>Serial TCPServer</h1>
+	<h4 style="margin:15px;">——串口数据转换 TCPServer 服务</h4>
+	</div>
+
+
+
+	<ul id="tab" class="nav nav-tabs">
+		<li class="active"><a href="#tab_pane_main" data-toggle="tab">应用主页</a></li>
+		<li><a href="#tab_pane_config" data-toggle="tab">参数设置</a></li>
+		<li><a href="#tab_pane_note" data-toggle="tab">使用说明</a></li>
+	</ul>
+
+	<div class="tab-content conf-box">
+
+		<div class="tab-pane fade active in" id="tab_pane_main">
+			<div class="form-horizontal well">
+				<h4>功能说明</h4>
+				<p>模块建立TCP Server 实现串口数据和网络侧交换。</p>
+			</div>
+
+
+			<div class="form-horizontal well">
+				<h4>当前状态</h4>
+
+				<dl class="dl-horizontal">
+					<dt>服务状态：</dt><dd id="status_run">未知状态</dd>
+				</dl>
+				<dl class="dl-horizontal">
+					<dt>当前接入客户端：</dt><dd id="stcps_status_connection">0</dd>
+					<dt>转网络发送字节：</dt><dd id="stcps_status_up_byte">0</dd>
+					<dt>转串口发送字节：</dt><dd id="stcps_status_dn_byte">0</dd>
+				</dl>
+
+				<p><span class="label label-info">说明</span>&nbsp 点击刷新按钮更新状态数据</p>
+
+			</div>
+			<p style="text-align:center;">
+				<a class="btn btn-info" href="###" id="sys_status_action_update"><i class="icon-refresh icon-white"></i> 刷新</a>
+			</p>
+
+		</div>
+
+		<div class="tab-pane fade" id="tab_pane_config">
+
+			<h3>网络设置</h3>
+			<div class="form-horizontal well">
+
+				<div class="control-group" id="cfg_text_net_lport">
+			 	  	<label class="control-label">本地端口：</label>
+				  	<div class="controls">
+			 	  		<input type="text" class="input-small" placeholder="TCP服务端口" value="55555">
+			 	  		<span class="help-inline"></span>
+		 			</div>
+				</div>
+
+			</div>
+
+			<h3>串口设置</h3>
+			<div class="form-horizontal well">
+
+				<div class="control-group" id="cfg_text_serial_baud">
+		 	  	<label class="control-label">波特率：</label>
+			  	<div class="controls">
+		 	  		<input type="text" class="input-small" placeholder="请输入波特率" value="115200">
+		 	  		<span class="help-inline"></span>
+		 			</div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_bits">
+			  	<label class="control-label">传输字位长：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="8bits">8Bits</option>
+			 	  	<option value="9bits">9Bits</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_sbits">
+			  	<label class="control-label">停止位长：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="0.5bit">0.5Bits</option>
+			 	  	<option value="1bit">1Bits</option>
+			 	  	<option value="1.5bits">1.5Bits</option>
+			 	  	<option value="2bits">2Bits</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_parity">
+			  	<label class="control-label">奇偶校验：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="none">无</option>
+			 	  	<option value="odd">奇校验</option>
+			 	  	<option value="even">偶校验</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+				<div class="control-group" id="cfg_select_serial_rs485">
+			  	<label class="control-label">485模式：</label>
+					<div class="controls">
+			 		<select>
+			 	  	<option value="enable">使能</option>
+			 	  	<option value="disable">禁止</option>
+			 	  </select>
+					<span class="help-inline"></span>
+			 	  </div>
+				</div>
+
+			</div>
+
+			<h3>转发设置</h3>
+			<div class="form-horizontal well">
+
+				<div class="control-group" id="cfg_text_other_holdtime">
+		 	  	<label class="control-label">转换间隔时间：</label>
+			  	<div class="controls">
+		 	  		<input type="text" class="input-small" placeholder="单位是毫秒" value="100">
+		 	  		<span class="help-inline"></span>
+		 			</div>
+				</div>
+
+			</div>
+
+
+			<p style="text-align:center;">
+				<a class="btn btn-info" href="###" id="sys_cfg_action_update"><i class="icon-refresh icon-white"></i> 读取配置</a>
+				<a class="btn btn-info" href="###" id="sys_cfg_action_save"><i class="icon-ok icon-white"></i> 保存配置</a>
+				<a class="btn btn-info" href="###" id="sys_cfg_action_reset"><i class="icon-off icon-white"></i> 复位系统</a>
+			</p>
+
+
+
+
+		</div>
+
+		<div class="tab-pane fade" id="tab_pane_note">
+
+			<div class="well">
+				<p><span class="label label-info">提示1</span>&nbsp <strong>TCP server功能</strong></p>
+				<p>模块建立TCP server，可以接受任何IP的访问，来源端口任意；</p>
+				<p>最多可以建立3个连接，连接建立时串口数据将被转发到客户端，客户端数据会被转发到串口。</p>
+			</div>
+
+			<div class="well">
+				<p><span class="label label-info">提示2</span>&nbsp <strong>HoldTime参数含义</strong></p>
+				<p>串口接收的数据，累积到等候超时会被转发。通过HoldTime来设置，单位是ms。</p>
+			</div>
+
+
+			<div class="well">
+				<h4>引脚占用说明</h4>
+				<p>本应用使用了Pin21、Pin27、Pin28。</p>
+				<dl class="dl-horizontal">
+					<dt>Pin21(IOP11)：</dt><dd>485芯片使能输出引脚（如果使能485模式）</dd>
+					<dt>Pin7(IOP03)：</dt><dd>串行接口TX</dd>
+					<dt>Pin6(IOP04)：</dt><dd>串行接口RX</dd>
+				</dl>
+				<img src="/img/wifiIO_pin_map.png" alt="wifiIO pin map" title="wifiIO_pin_map" border="0">
+			</div>
+
+			<div class="well">
+				<h4>开发者</h4>
+				<p><span class="label label-info">状态读取</span>&nbsp 使用<strong>/logic/wifiIO/invoke?target=stcps.stcps_status</strong>接口，可以访问名称为stcps的addon的stcps_status()函数，进而能够获得
+				{"up_byte":0,"dn_byte":0,"connection":0} 形式的json数据串。</p>
+				<p><span class="label label-info">配置读取</span>&nbsp 访问<strong>/app/stcps/cfg.json</strong>即可以得到配置json数据。</p>
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+
+
+
+<div class="mini-tip" id="mini-tip"></div>
+<div id="shadow"></div>
+<div id="footer" class="footer">
+
+</div>
+
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="stcps.js"></script>
+
+</body>
+</html>
