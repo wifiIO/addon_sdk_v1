@@ -1,12 +1,17 @@
 
+/**
+ * @file			max7219.c
+ * @brief			驱动max7219的点阵模块
+ *					淘宝有售：http://item.taobao.com/item.htm?spm=0.0.0.0.4mlPfZ&id=22058276355
+ * @author			dy@wifi.io
+*/
+
 
 
 
 #include "include.h"
 
 /*
-This addon can be controlled from web browser or OTd via json rpc.
-
 Command format should be:
 
 {
@@ -14,7 +19,6 @@ Command format should be:
 	"params":"3c42a581a599423c"	// 8bytes = 16hexs
 }
 */
-
 
 
 /*
@@ -89,7 +93,7 @@ Json delegate interface are mostly used for callbacks, and is supported by both 
 
 So if you want your code be called from web browser or from cloud(OTd),you write code in the form below.
 
-int JSON_RPC(xxx)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)
+int JSON_RPC(xxx)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx){}
 
 httpd will receive POST request like:
 {

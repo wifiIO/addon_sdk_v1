@@ -41,7 +41,7 @@ JSON_RPC委托接口，在示例 helloworld 中有说明，请移步阅读。
 		"result":{"humidity":xx, "temperature":xxx},
 	}
 
-![dht11](../../addons_img/read_dht11.jpg?raw=true)
+![dht11](../../addons_img/dht11_web.jpg?raw=true)
 
 这个演示了通过模块的http服务实现JSON RPC的调用。
 
