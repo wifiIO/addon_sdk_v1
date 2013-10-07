@@ -1,3 +1,10 @@
+/**
+ * @file			aes_test.c
+ * @brief			AES加密测试程序
+ *	对文件进行AES加密，加密结果可以比对openssl加密结果
+ *	openssl.exe enc -aes-128-cbc -in file_in -K 0123456789ABCDEF0123456789ABCDEF -iv FEDCBA9876543210FEDCBA9876543210 -out file_out
+ * @author			dy@wifi.io
+*/
 
 
 #include "include.h"
@@ -33,7 +40,7 @@ int main(int argc, char* argv[])
 
 	size_t fsize = 0;
 
-	buf = api_fs.read_alloc("/app/raw", 10240, &fsize, 16);	//额外多申请16字节
+	buf = api_fs.read_alloc("/raw", 10240, &fsize, 16);	//最多10K 额外多申请16字节
 
 	if(NULL == buf)
 		return ADDON_LOADER_ABORT;
@@ -53,7 +60,7 @@ int main(int argc, char* argv[])
 
 	LOG_INFO("Saving...\r\n");
 
-	api_fs.write_buf("/app/raw.aes", buf, fsize);
+	api_fs.write_buf("/raw.aes", buf, fsize);
 
 	_free(buf);
 

@@ -51,6 +51,15 @@
 提交后便可以看到LED变化。
 
 ****
+##关于JSON_RPC
+代码中有定义
+
+	int JSON_RPC(onoff)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)	
+
+这实现了一个回调接口，该接口输入是请求的JSON串，输出可以是硬件动作亦或是JSON输出。
+
+该接口定义了Addon中的一个method方法，可以被本地调用 也可以被云端访问。
+
 * 本地控制的原理是：模块内部运行的http服务器接受了RPC请求，调用了Addon中的 JSON RPC 接口“onoff”。
 * 远程控制的原理是：云端下发了JSON串，通过模块内部运行的ot客户端，调用了Addon中的 JSON RPC 接口“onoff”。
 

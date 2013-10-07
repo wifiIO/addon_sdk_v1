@@ -1,4 +1,12 @@
 
+/**
+ * @file			lcdi2c.c
+ * @brief			wifiIO驱动IIC LCD的测试程序
+ *	main函数中定义了两个引脚分别作为SDA和SCL 连接好硬件。将程序以"lcd"的名称运行
+ *	可以看到LCD 显示文字，同时也可以使用模块web界面 委托接口调试
+ * @author			dy@wifi.io
+*/
+
 
 
 
@@ -14,13 +22,29 @@
 
 
 
+typedef struct{
+	void (*init)(wifiIO_gpio_t sda,wifiIO_gpio_t scl, u8_t lcd_Addr,u8_t lcd_cols,u8_t lcd_rows);
+	void (*print)(char* str);
+	void(*clear)(void);
+	void(*home)(void);
+	void(*noDisplay)(void);
+	void(*display)(void);
+	void(*noBlink)(void);
+	void(*blink)(void);
+	void(*noCursor)(void);
+	void(*cursor)(void);
+	void(*setCursor)(u8_t, u8_t); 
+	void(*scrollDisplayLeft)(void);
+	void(*scrollDisplayRight)(void);
+	void(*leftToRight)(void);
+	void(*rightToLeft)(void);
+	void(*noBacklight)(void);
+	void(*backlight)(void);
+	void(*autoscroll)(void);
+	void(*noAutoscroll)(void); 
+	void(*createChar)(u8_t, u8_t[]);
+}lcd_i2c_api_t;
 
-
-/*
-*/
-
-
-#include "lcdi2c.h"
 
 
 // commands
@@ -361,7 +385,7 @@ static void begin(u8_t cols, u8_t lines, u8_t dotsize) {
 
 
 
-const lcd_i2c_api_t api_lcd_i2c __ADDON_EXPORT__ = {
+const lcd_i2c_api_t api_lcd_i2c = {
 	.init = init,
 	.print = print,
 	.clear = clear,
@@ -384,6 +408,7 @@ const lcd_i2c_api_t api_lcd_i2c __ADDON_EXPORT__ = {
 	.createChar = createChar,
 };
 
+#define PCF8574_Address 0x4E //PCF8574 I2C地址
 
 
 ////////////////////////////////////////
@@ -404,12 +429,10 @@ int main(int argc, char* argv[])
 
 	LOG_INFO("main: lcdi2c attached...\r\n");
 
-	api_lcd_i2c.init(WIFIIO_GPIO_01 ,WIFIIO_GPIO_02, 0x4E,16, 2);
-//	api_lcd_i2c.backlight();
+	api_lcd_i2c.init(WIFIIO_GPIO_01 ,WIFIIO_GPIO_02, PCF8574_Address,16, 2);
+	api_lcd_i2c.backlight();
 //	api_lcd_i2c.autoscroll();
 	api_lcd_i2c.print("Hello world!");
-/*
-*/
 	
 
 	return ADDON_LOADER_GRANTED;
@@ -420,159 +443,49 @@ int main(int argc, char* argv[])
 
 
 
-
-
-/*
-i2c_sim_dev_t i2c_dev;
-#define PCF8574_Address 0x4E //PCF8574 I2C地址
-
-
-static void write_cmd(u8_t addr, u8_t cmd)	//向LCD1602写入指令 
-{
-	int ret = STATE_OK;
-	u8_t temp=0;
-
-	api_tim.tim6_poll(20);		//20us
-	//DelayUS(17);//此处插入一个等待很重要，小于这个时间会导致连续写时出现错误
-	//先写入高4位
-
-	temp = cmd&0xF0;//先处理高4位，EN=0,RW=0,RS=0
-	ret = i2c_sim.write(&i2c_dev, addr, &temp, 1);
-	if(ret)LOG_WARN("1 %d\r\n", ret);
-
-	BIT_SET(temp, BIT_EN); //拉高EN
-	ret = i2c_sim.write(&i2c_dev, addr, &temp, 1);
-//	if(ret)LOG_WARN("2 %d\r\n", ret);
-
-	BIT_CLEAR(temp, BIT_EN)//EN置低，下降沿写入液晶
-	ret = i2c_sim.write(&i2c_dev, addr, &temp,1);
-//	if(ret)LOG_WARN("3 %d\r\n", ret);
-
-	//接下来写入低4位
-	temp = cmd<<4;
-	ret = i2c_sim.write(&i2c_dev, addr, &temp,1);
-//	if(ret)LOG_WARN("4 %d\r\n", ret);
-
-	BIT_SET(temp, BIT_EN); //拉高EN
-	ret = i2c_sim.write(&i2c_dev, addr, &temp,1);
-//	if(ret)LOG_WARN("5 %d\r\n", ret);
-
-	BIT_CLEAR(temp, BIT_EN);	//EN置低，下降沿写入液晶
-	ret = i2c_sim.write(&i2c_dev, addr, &temp,1);
-//	if(ret)LOG_WARN("6 %d\r\n", ret);
-
-}
-
-static void write_dat(u8_t addr, u8_t data)	//向LCD1602写入数据 
-{
-	int ret = STATE_OK;
-	u8_t temp=0;
-
-	//DelayUS(17);//此处插入一个等待很重要，小于这个时间会导致连续写时出现错误
-	api_tim.tim6_poll(20);		//20us
-
-
-	//先处理高4位，EN=0,RW=0,RS=1
-	temp = data&0xF0;
-	BIT_SET(temp, BIT_RS);
-	ret = i2c_sim.write(&i2c_dev, addr, &temp,1);
-	if(ret)LOG_WARN("1 %d\r\n", ret);
-
-
-	BIT_SET(temp, BIT_EN);	//拉高EN
-	ret = i2c_sim.write(&i2c_dev, addr, &temp,1);
-//	if(ret)LOG_WARN("2 %d\r\n", ret);
-
-	BIT_CLEAR(temp, BIT_EN);	//EN置低，下降沿写入液晶
-	ret = i2c_sim.write(&i2c_dev, addr, &temp,1);
-//	if(ret)LOG_WARN("3 %d\r\n", ret);
-
-	//接下来写入低4位
-	temp = data<<4;
-	BIT_SET(temp, BIT_RS);
-	ret = i2c_sim.write(&i2c_dev, addr, &temp,1);
-//	if(ret)LOG_WARN("4 %d\r\n", ret);
-
-	BIT_SET(temp, BIT_EN);	//拉高EN
-	ret = i2c_sim.write(&i2c_dev, addr, &temp,1);
-//	if(ret)LOG_WARN("5 %d\r\n", ret);
-
-	BIT_CLEAR(temp, BIT_EN);	//EN置低，下降沿写入液晶
-	ret = i2c_sim.write(&i2c_dev, addr, &temp,1);
-//	if(ret)LOG_WARN("6 %d\r\n", ret);
-
-}
-
-void init(u8_t addr)			 //LCD1602初始化函数
-{
-	write_cmd(addr, 0x28);//先进行功能设置，四位数据接口，两行显示，5′7点阵字符。
-	api_os.tick_sleep(40);	//等待上条指令完成
-	write_cmd(addr, 0x0C);//Display On/Off Control，显示开关：D=1为开，光标开关：C=1为开，闪烁开关：B=1为开
-	//write_cmd(addr, 0x06);//AC地址递增模式
-	//api_os.tick_sleep(2);
-	write_cmd(addr, 0x01);//清屏
-	api_os.tick_sleep(2);
-}
-
-void  set_pos(u8_t addr, u8_t x, u8_t y) //向LCD1602设置下一个准备写入的字符位置
-{
-	u8_t address = (y == 0) ? (0x80 + x) : (0xC0 + x);
-	write_cmd(addr, address);
-}
-
-void  pos_string(u8_t addr, u8_t X, u8_t Y, char *String) //向指定的位置开始写字符串 
-{
-	set_pos(addr, X, Y);
-	while(*String)
-		write_dat(addr, *String++);
-}
-
-void  put_string(u8_t addr, char *String) //开始写字符串 
-{
-	while(*String)
-		write_dat(addr, *String++);
-}
-
-
-
-
-
-
-
 ////////////////////////////////////////
-//每一个addon都有main，该函数在加载后被运行
-// 这里适合:
-// addon自身运行环境检查；
-// 初始化相关数据；
-
-//若返回 非 ADDON_LOADER_GRANTED 将导致函数返回后
-//被卸载
-
-//该函数的运行上下文 是wifiIO进程
+// 该函数的运行上下文 是调用该委托接口的进程
+// httpd、otd 都可以调用该接口
+// 接口名称为 lcd.print
+//{
+//	"method":"lcd.print",
+//	"params":"0123456789ABCDEF"	// 8bytes = 16hexs
+//}
 ////////////////////////////////////////
 
-int main(int argc, char* argv[])
+int JSON_RPC(print)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)	//继承于fp_json_delegate_start
 {
-	api_tim.tim6_init(1000000);	//初始化定时器6 1us为单位
+	int ret = STATE_OK;
+	char* err_msg = NULL;
+	char str[64];
 
-	LOG_INFO("main: lcdi2c attached...\r\n");
+	LOG_INFO("DELEGATE lcdi2c.print.\r\n");
+
+	//pjn->tkn 正是 "0123456789ABCDEF"
+	if(NULL == pjn->tkn || JSMN_STRING != pjn->tkn->type ||
+	 STATE_OK != jsmn.tkn2val_str(pjn->js, pjn->tkn, str, sizeof(str), NULL)){		//判断输入json是否合法
+		ret = STATE_ERROR;
+		err_msg = "param error.";
+		LOG_WARN("lcdi2c:%s.\r\n", err_msg);
+		goto exit_err;
+	}
+
+	LOG_INFO("lcdi2c: %s \r\n", str);
+
+	api_lcd_i2c.clear();
+	api_lcd_i2c.print(str);
 
 
+//exit_safe:
+	if(ack)
+		jsmn.delegate_ack_result(ack, ctx, ret);
+	return ret;
 
-	i2c_sim.init(&i2c_dev,WIFIIO_GPIO_01 ,WIFIIO_GPIO_02 ,10);
-	init(PCF8574_Address);
-	put_string(PCF8574_Address, "hello!!!");
-
-
-//	return ADDON_LOADER_GRANTED;
-//err_exit:
-	return ADDON_LOADER_ABORT;
+exit_err:
+	if(ack)
+		jsmn.delegate_ack_err(ack, ctx, ret, err_msg);
+	return ret;
 }
-
-
-*/
-
-
 
 
 

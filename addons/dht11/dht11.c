@@ -1,4 +1,12 @@
 
+/**
+ * @file			dht11.c
+ * @brief			温湿度传感器DHT11测试程序
+ *	驱动DHT11，并且提供读取的通用接口。
+ *	
+ * @author			dy@wifi.io
+*/
+
 
 
 
@@ -12,7 +20,7 @@
 	"method":"dht11.read",
 	"params":{}
 }
-
+返回:
 {
 	"result":{"humidity":xx, "temperature":xxx},
 }
@@ -20,13 +28,13 @@
 
 */
 
+#define DHT11_DATA	WIFIIO_GPIO_01
+#define DHT11_INPUT api_io.init(DHT11_DATA, IN_PULL_UP)
+#define DHT11_OUTPUT api_io.init(DHT11_DATA, OUT_OPEN_DRAIN_PULL_UP)
 
-#define DHT11_INPUT api_io.init(WIFIIO_GPIO_01, IN_PULL_UP)
-#define DHT11_OUTPUT api_io.init(WIFIIO_GPIO_01, OUT_OPEN_DRAIN_PULL_UP)
-
-#define DHT11_OUT_LOW api_io.low(WIFIIO_GPIO_01)
-#define DHT11_OUT_HIGH api_io.high(WIFIIO_GPIO_01)
-#define DHT11_IN_DAT  api_io.get(WIFIIO_GPIO_01)
+#define DHT11_OUT_LOW api_io.low(DHT11_DATA)
+#define DHT11_OUT_HIGH api_io.high(DHT11_DATA)
+#define DHT11_IN_DAT  api_io.get(DHT11_DATA)
 
 
 
@@ -111,13 +119,12 @@ void dht11_stop(void)
 //}
 ////////////////////////////////////////
 
-int __ADDON_EXPORT__ JSON_DELEGATE(read)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)	//继承于fp_json_delegate_start
+int JSON_RPC(read)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)	//继承于fp_json_delegate_start
 {
 	int ret = STATE_OK;
 	char* err_msg = NULL;
 
 	LOG_INFO("DELEGATE dht11.read.\r\n");
-
 
 
 /*
@@ -126,8 +133,6 @@ int __ADDON_EXPORT__ JSON_DELEGATE(read)(jsmn_node_t* pjn, fp_json_delegate_ack 
 	"params":{}
 }
 */
-
-
 
 	//----温度高8位== U8T_data_H------
 	//----温度低8位== U8T_data_L------
@@ -167,14 +172,14 @@ int __ADDON_EXPORT__ JSON_DELEGATE(read)(jsmn_node_t* pjn, fp_json_delegate_ack 
 		u32_t n = 0;
 		n += _snprintf(json+n, sizeof(json)-n, "{\"result\":{\"temperature\":%u.%u,\"humidity\":%u.%u}}",temp_h, temp_l, humi_h, humi_l); 
 		jsmn_node_t jn = {json, n, NULL};
-		ack(&jn, ctx);
+		ack(&jn, ctx);	//这里对json请求 回应json
 	}
 	return ret;
 
 
 //exit_safe:
 	if(ack)
-		jsmn.delegate_ack_result(ack, ctx, ret);
+		jsmn.delegate_ack_result(ack, ctx, ret);	
 	return ret;
 
 exit_err:
@@ -188,56 +193,20 @@ exit_err:
 
 ////////////////////////////////////////
 //每一个addon都有main，该函数在加载后被运行
-// 这里适合:
-// addon自身运行环境检查；
-// 初始化相关数据；
-
-//若返回 非 ADDON_LOADER_GRANTED 将导致函数返回后
-//被卸载
-
-//该函数的运行上下文 是wifiIO进程
+//若返回 非 ADDON_LOADER_GRANTED 将导致main函数返回后addon被卸载
 ////////////////////////////////////////
 
 int main(int argc, char* argv[])
 {
-
 	DHT11_OUTPUT;	//初始化引脚
 	api_tim.tim6_init(100000);	//初始化定时器6 10us为单位
 
 	LOG_INFO("main: DHT11 starting...\r\n");
 
-
-	return ADDON_LOADER_GRANTED;
+	return ADDON_LOADER_GRANTED;	//保持addon在ram中
 //err_exit:
 //	return ADDON_LOADER_ABORT;
 }
-
-
-
-
-//httpd接口  输出 json
-/*
-GET http://192.168.1.105/logic/wifiIO/invoke?target=dht11.status
-
-{"state":loaded}
-
-*/
-
-
-int __ADDON_EXPORT__ JSON_FACTORY(status)(char*arg, int len, fp_consumer_generic consumer, void *ctx)
-{
-	char buf[32];
-	int n, size = sizeof(buf);
-
-
-	n = 0;
-	n += utl.snprintf(buf + n, size-n, "{\"state\":\"loaded\"}");
-	return  consumer(ctx, (u8_t*)buf, n);
-}
-
-
-
-
 
 
 

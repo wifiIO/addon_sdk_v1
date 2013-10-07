@@ -1,3 +1,13 @@
+
+/**
+ * @file			ir.c
+ * @brief			wifiIO驱动红外发射管的测试程序
+ *	非常简单的一个测试程序，可以间歇发送38K脉冲。
+ *	可以使红外接收模块输出相应的波形。
+ *	实际上，使用PWM输出38K更加简单
+ * @author			dy@wifi.io
+*/
+
 #include "include.h"
 
 #define IR_SEND_PIN WIFIIO_GPIO_01

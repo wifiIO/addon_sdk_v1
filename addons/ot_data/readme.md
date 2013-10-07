@@ -52,6 +52,28 @@ wifi.io提供的data接口服务是一个基于tag的数据存储服务，设备
 
 
 ****
+wifi.io还提供了转发服务forward，用户可以使用类似下面的代码，将一个json串POST到任意指定地址去。
+
+	int sms(void)
+	{
+		char json[256];
+		u32_t n = 0;
+		n += _snprintf(json+n, sizeof(json)-n, 
+			"{\"method\":\"forward\",
+			  \"params\":{
+				\"url\":\"http://api.wifi.io/sms/send.php\",
+				\"content\":{\"tel\":136710567xx,\"msg\":\"发条短信骚扰一下~！\"}
+				}
+			 }"); 
+		api_ot.notify(json, n);
+		return STATE_OK;
+	}
+
+上面的例子，就可以将json：{"tel":136710567xx,"msg":"发条短信骚扰一下~！"} POST给http://api.wifi.io/sms/send.php。
+
+通过这个接口，就可以实现模块和你自己的服务通讯啦。
+
+
 
 
 更多细节请参考源代码。
