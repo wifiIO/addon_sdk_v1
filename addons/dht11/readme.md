@@ -5,6 +5,8 @@
 
 下面的例子要实现对DHT11模块的驱动，并且实现一个主动读取的接口。
 
+![dht11](../../addons_img/dht11.jpg)
+
 DHT11的器件知识：
 
 http://www.adafruit.com/datasheets/DHT11-chinese.pdf

@@ -47,8 +47,8 @@ typedef struct {
 	wifiIO_pwm_t pwm_dev;
 	u8_t Vfrom;	//起始值
 	u8_t Vdest;	//目标值
-	u8_t halfcycle;	//半周期 秒
-	u16_t hc_num;	//半周期数量
+	u16_t halfcycle;	//半周期 秒
+	u32_t hc_num;	//半周期数量
 
 
 
@@ -91,11 +91,13 @@ void dev_iterate_calculate(pwm_dev_t* dev)
 	else
 		return;
 
-	if(dev->halfcycle == 0)
-		dev->halfcycle = 1;
+//	if(dev->halfcycle == 0)
+//		dev->halfcycle = 1;
 
 	dev->iter_delay_num = dev->delay *10;
 	n = dev->halfcycle * 10;		//半周期用秒计数，迭代周期是100ms
+	if(n == 0)	//如果是立即变化 那么至少半周期是100ms
+		n = 1;
 
 	dev->iter_Vdelta = sign * (dev->iter_Vhigh - dev->iter_Vlow)/(float)n;
 	dev->iter_change_num = n*dev->hc_num;
@@ -133,7 +135,7 @@ void dev_iterate(pwm_dev_t* dev)
 		dev->iter_Vcurr += dev->iter_Vdelta;		//根据当前值计算下一个值
 
 		if(dev->iter_Vcurr > dev->iter_Vhigh || dev->iter_Vcurr < dev->iter_Vlow)
-			dev->iter_Vdelta = -dev->iter_Vdelta;
+			dev->iter_Vdelta = -dev->iter_Vdelta;	//delta反转
 
 		v = (u8_t)dev->iter_Vcurr;
 		if(v > dev->iter_Vhigh)		v = dev->iter_Vhigh;
@@ -192,8 +194,9 @@ int JSON_RPC(schedule)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)
 	while(cmd_num--){
 		int dev_num = 0;
 		jsmntok_t* j = jt;
-		u8_t val,halfcycle;
-		u16_t hc_num;
+		u8_t val;
+		u16_t halfcycle;
+		u32_t hc_num;
 		u32_t delay;
 	
 		if(JSMN_ARRAY != j->type || j->size <= 4){
@@ -210,9 +213,9 @@ int JSON_RPC(schedule)(jsmn_node_t* pjn, fp_json_delegate_ack ack, void* ctx)
 		j++;
 		jsmn.tkn2val_uint(pjn->js, j, &delay);	//第2个单元是 delay
 		j++;
-		jsmn.tkn2val_u8(pjn->js, j, &halfcycle);	//第3个单元是 halfcycle
+		jsmn.tkn2val_u16(pjn->js, j, &halfcycle);	//第3个单元是 halfcycle
 		j++;
-		jsmn.tkn2val_u16(pjn->js, j, &hc_num);	//第4个单元是 hc_num
+		jsmn.tkn2val_uint(pjn->js, j, &hc_num);	//第4个单元是 hc_num
 		j++;
 
 

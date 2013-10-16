@@ -125,6 +125,9 @@ int httpd_respond_sweb_target(httpd_session_t* hd_session, const char* sweb_get_
 		return ret;
 
 close_exit:
+
+	//finish this request (not session), this will cause "xxx_body" and "xxx_end" not be called.
+	api_httpd.resp_finish(hd_session);
 	api_httpd.sess_abort(hd_session);
 	return ret;
 }
@@ -217,15 +220,12 @@ int httpd_respond_swebdata(httpd_session_t* hd_session, const char* type)
 		api_httpd.resp_html(hd_session, HTTP_RSP_200_OK, (char*)html_ok_back, BIT_IS_SET(h_bkend->req_flag, HTTP_REQ_FLAG_KEEPALIVE ));
 	}
 
-
 	//若wait参数为空也不是file upload (AJAX请求)，直接返回状态200
 	else{
 		api_httpd.resp_setChunked(hd_session);
 		api_httpd.resp_headerCommit(hd_session);
 		api_httpd.resp_write_chunk(hd_session, NULL, 0);
 	}
-
-
 
 	//flush out
 	api_httpd.resp_flush(hd_session);
@@ -235,6 +235,9 @@ int httpd_respond_swebdata(httpd_session_t* hd_session, const char* type)
 		return ret;
 
 close_exit:
+
+	//finish this request (not session), this will cause "xxx_body" and "xxx_end" not be called.
+	api_httpd.resp_finish(hd_session);
 	api_httpd.sess_abort(hd_session);
 	return ret;
 
