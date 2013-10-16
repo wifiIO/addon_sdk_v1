@@ -1,124 +1,60 @@
-﻿#SerialWeb: 实现浏览器与串口的交互程序
-
+﻿#使用串口摄像头来实现图像采集
 
 ##概述
 
-sweb插件用来提供httpd对串口控制的支持。sweb安装运行后，可以对http服务发布GET或者POST方式访问模块串口。
+市面上常见的串口摄像头多是采用了中星微的VC0706芯片设计的。
 
-前者可以直接在浏览器地址栏里输入，即刻获取回应。而后者需要使用javascript编写相应脚本通过AJAX方式获取数据；前者简单方便，可以应用在wap浏览器上；后者功能灵活强大，利于数据上下交换。
+![serial camera](../../addons_img/vc0706_cam.jpg)
 
-##快速测试
+![serial camera](../../addons_img/vc0706_cam_back.jpg)
 
-1. 安装sweb.add插件到模块（如果从云端部署，请确定以sweb名称实施，这将保证程序被安装在“/app/sweb”目录下）；
-2. 上传cfg.json文件到"/app/sweb"目录；
-3. 运行sweb应用（云端或者本地）；
-4. 可以短接模块串口2收发引脚；
-5. 在浏览器地址栏输入，例如：
-http://192.168.x.x/logic/sweb/serial?target=hello&wait=1000
-回车，一秒钟后，便可以在浏览器窗口看到发出但是被回传的字符串“hello”。
+一般这种摄像头采用串口来连接用户系统。
+wifiIO模块可以很简单的驱动起这类的摄像头。本示例演示了如何设计addon来给模块的网页服务器（httpd）提供新的功能——拍摄照片。
 
-该测试演示了通过GET方式与模块进行数据交换。
+非常感谢 Adafruit 为Arduino写好了相关的驱动代码，使得本示例可以不用从轮子开始，很快就能驱动起这颗摄像头。本例参考代码来自于：
+https://github.com/adafruit/Adafruit-VC0706-Serial-Camera-Library。
 
-更多测试请参考应用的相应页面。
+Arduino想要玩转拍摄图片，只能够将其存储到附带的SD卡中。
 
-##测试页面
-
-示例附带提供了两个web界面文件：index.html、sweb.js，请将其上传到/app/sweb目录（若没有则自己建立）。完毕后，可以打开：
-
-http://192.168.1.xxx/app/sweb/index.htm
-
-确定sweb插件被加载的前提下，按照使用说明操作测试。
+而wifiIO模组便有不同的玩法了，我们可以将其直接在本地浏览器上渲染出来，并且可以上传云端，甚至通过微信发送到您的手机上 ;-) 。
+本例演示的是如何在本地访问，通过浏览器来观看拍摄到的图片。
 
 
-##使用说明
+![serial camera](../../addons_img/vc0706_web.jpg)
 
 
-**用GET方式与串口数据交换**
+##如何使用
 
-向模块http服务器发出GET请求，目标是：
+本示例仅仅需要使用模块上串口2 就可以驱动VC0706芯片。注意，常见的摄像头模块提供的串口是RS232接口（板上有一颗max3232），而wifiIO模块上包含RS232和TTL接口两种引脚扇出，请注意区别连接。
+（模块上SERIAL2 TTL引脚是 IO03 和 IO04， RS232的引脚是2TX和2RX）
 
-http://192.168.1.x/logic/sweb/serial?target=hello&wait=1000
+摄像头模块  还需要5V电源，请注意正确连接。
 
-支持参数字段如下：
+本例使用了TTL电平接口，使用方便计，对摄像头模块做了焊接引线处理，如下图：
 
-* target: 在读取串口数据之前，模块发送该字符串到串口。省略该参数，则仅仅从串口buf中读取一次数据。
-* urlenc: 定义数据交换是否使用url编码方式，可选 true/false，示例：urlenc=true，省略该参数缺省是不用到url编码；（关于url编解码，请看尾部说明）
-在GET方式中 开启该选项，不会对target参数的字符串进行解码，仅仅是对模块返回的数据串进行编码。
-* wait: 定义等候串口接收的最长时间，该时间窗口中所有串口返回的数据都会被反馈至浏览器，单位ms，范围0～60000，示例：wait=1000。省略该参数缺省是0。
-* clean: 指定是否在发送target字串前（如果有的话）清除串口接收缓存，可选 true/false，示例：“clean=true”，省略该参数缺省是false；
-* mime: 定义返回类型（content-type），可选如下表，示例：“mime=json”，省略该参数缺省是“text/html”；细节见下面“http服务器mime类型编码表”；
+![serial camera](../../addons_img/vc0706_cam_soldered.jpg)
 
+![serial camera](../../addons_img/vc0706_cam_soldered_detailed.jpg)
 
-****************
+正确连接好后，编译代码，并以“sercam”名称部署运行（下面需要用到这个名称）。
 
+在浏览器中打开模块的主页，改动地址栏为：http://192.168.1.xx/logic/sercam/snapshot
+回车便可以打开一张图片，刷新页面便可以看到镜头输出变化的图像。这个url可以用<img>标签嵌套在html文件中。
 
-**POST方式与串口数据交换**
+##备注
 
-和GET方式类似，POST目标类如：
-http://192.168.1.x/logic/sweb/serial?wait=1000&clean=true
-
-支持参数字段如下：
-
-* urlenc: 定义数据交换是否使用url编码方式，可选 true/false，示例：urlenc=true，省略该参数缺省是不用到url编码；（关于url编解码，请看尾部附属章节）
-POST方式中该选项，会对POST请求body的内容进行解码，也同时对模块返回的数据进行编码。
-* wait: 定义等候串口接收的最长时间，该时间窗口中所有串口返回的数据都会被反馈至浏览器，单位ms，范围0～60000，示例：wait=1000。省略该参数缺省是0；
-* clean: 指定是否在发送target字串前（如果有的话）清除串口接收缓存，可选 true/false，示例：“clean=true”，省略该参数缺省是false；
-* mime: 定义返回类型（content-type），可选如下表，示例：“mime=json”，省略该参数缺省是“text/html”；细节见下面“http服务器mime类型编码表”；
-
-****************
-
-**http服务器mime类型编码表**
-
-* html: "text/html"
-* gif: "image/gif"
-* png: "image/png"
-* jpg: "image/jpeg"
-* bmp: "image/bmp"
-* ico: "image/x-icon"
-* dat: "application/octet-stream"
-* js: "application/x-javascript"
-* css: "text/css"
-* swf: "application/x-shockwave-flash"
-* xml: "text/xml"
-* json: "application/json"
+本例演示了如何通过插件为模块的web服务器（httpd）添加额外功能，SDK提供的API使开发者可以很简单的设计httpd后端的逻辑，细腻的实现浏览器与硬件交互的应用。
 
 
-补充说明：使用URL编码与串口交换数据
---------
-由于浏览器缺省会对处理的字符采用utf8方式进行编码，所以没有办法随心所欲的将任意二进制数据发送到模块的串口，模块串口返回的二进制流也无法被浏览器接收处理，为了解决这个问题，可以使用URL编码来解决这个问题。
+##依赖
 
-URLCode编码方式很简单，其类似于一种字符替代机制。" "（空格）替换为"+"，英文字母、数字、"-"、"."、"_"、"~"不变，之外其他所有字符，都使用"%XY"方式直接设置其16进制编码值即可。
-例如，“hello 中国”编码后为“hello+%e4%b8%ad%e5%9b%bd”。
+httpd服务（参见代码中main函数的实现）
 
-wifiIO模块支持URL编解码，利用这种能力，可以在浏览器和串口间传递任意二进制数据。
-
-不采用URLEncode方式的数据交互过程如下：
-
-* 浏览器页面输入：abc中文
-* 内部utf8编码为：61 62 63 (abc)E4 B8 AD (中)E6 96 87 (文)
-* wifiIO网络接收：61 62 63 E4 B8 AD E6 96 87
-* wifiIO串口输出：61 62 63 E4 B8 AD E6 96 87
-
-采用URLEncode方式的数据交互过程如下：
-
-浏览器送到模块：
-
-* 浏览器页面输入：%E4%B8%AD
-* 内部utf8编码为：%E4%B8%AD
-* wifiIO网络接收：%E4%B8%AD
-* wifiIO串口输出：E4 B8 AD
-
-
-模块到浏览器：
-
-* wifiIO串口输入：00 01 02
-* wifiIO网络发送：%00%01%02
-* 浏览器接收：%00%01%02 （这时便可以用js来处理字串形成byte数组）
 
 ****
 更多细节请参考源代码。
 
-20131006
-问题和建议请email: dy@wifi.io 
+20131014
 
-
+****
+问题和建议可以email: dy@wifi.io 
