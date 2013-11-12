@@ -17,7 +17,7 @@
 #define DOMAIN_SIZE_MAX 64
 
 
-typedef struct add_stcpc_info{
+typedef struct stcpc_opt{
 
 	char domain[DOMAIN_SIZE_MAX];
 	u16_t peer_port;
@@ -33,15 +33,15 @@ typedef struct add_stcpc_info{
 	u32_t statistic_up_serial_bytes;
 	u32_t statistic_down_serial_bytes;
 
-}add_stcpc_info_t;
+}stcpc_opt_t;
 
 
 
 static int  tcpc_timer_resolve_connect(tcpc_info_t* tcpc, void* ctx)
 {
 	int ret = STATE_OK;
-	add_stcpc_info_t* stcpc;
-	stcpc = (add_stcpc_info_t*)api_tcpc.info_opt(tcpc);
+	stcpc_opt_t* stcpc;
+	stcpc = (stcpc_opt_t*)api_tcpc.info_opt(tcpc);
 
 	//如果当前还没有进入连接流程，那么尝试
 	if(TCPC_STATE_IDLE == api_tcpc.state(tcpc)){
@@ -80,11 +80,11 @@ static int  tcpc_timer_resolve_connect(tcpc_info_t* tcpc, void* ctx)
 
 
 //hold time定时检查
-static int stcpc_timer_serial_check(nb_info_t* nb, nb_timer_t* ptmr, void* ctx)
+static int stcpc_timer_serial_check(nb_info_t* pnb, nb_timer_t* ptmr, void* ctx)
 {
 	int slen = 0;
-	tcpc_info_t* tcpc = (tcpc_info_t*)nb;
-	add_stcpc_info_t* stcpc = (add_stcpc_info_t*)api_tcpc.info_opt(tcpc);
+	tcpc_info_t* tcpc = (tcpc_info_t*)pnb;
+	stcpc_opt_t* stcpc = (stcpc_opt_t*)api_tcpc.info_opt(tcpc);
 
 	//检查串口数据
 	if(0 == (slen = api_serial.peek(SERIAL2))){
@@ -151,7 +151,7 @@ static int stcpc_serial_event_src(void* sdev, void*ctx, int len)
 {
 	int ret = STATE_OK;
 	tcpc_info_t * tcpc =  (tcpc_info_t*)ctx;
-	add_stcpc_info_t* stcpc = (add_stcpc_info_t*)api_tcpc.info_opt(tcpc);
+	stcpc_opt_t* stcpc = (stcpc_opt_t*)api_tcpc.info_opt(tcpc);
 	nb_msg_t* msg = stcpc->serial_rx_msg;
 
 	add_stcpc_msg_t *stcpc_msg = api_nb.msg_opt(msg);
@@ -170,7 +170,7 @@ static int stcpc_serial_event_src(void* sdev, void*ctx, int len)
 //若没有设置peer_ip，域名解析
 static int tcpc_stcpc_cb_enter(tcpc_info_t* tcpc)
 {
-	add_stcpc_info_t* stcpc = api_tcpc.info_opt(tcpc);
+	stcpc_opt_t* stcpc = api_tcpc.info_opt(tcpc);
 	//避开加载脚本
 	//api_os.tick_sleep(1000);
 
@@ -194,7 +194,7 @@ static int tcpc_stcpc_cb_enter(tcpc_info_t* tcpc)
 static int tcpc_stcpc_cb_exit(tcpc_info_t* tcpc)
 {
 
-	//add_stcpc_info_t* stcpc = api_tcpc.info_opt(tcpc);
+	//stcpc_opt_t* stcpc = api_tcpc.info_opt(tcpc);
 
 	api_serial.close(SERIAL2);
 
@@ -212,7 +212,7 @@ static int tcpc_stcpc_cb_recv(tcpc_info_t* tcpc)
 {
 	int ret = STATE_OK;
 	net_pkt_t* pkt;
-	add_stcpc_info_t* stcpc = api_tcpc.info_opt(tcpc);
+	stcpc_opt_t* stcpc = api_tcpc.info_opt(tcpc);
 
 	ret = api_tcpc.recv(tcpc, &pkt);
 	if(ret != STATE_OK){
@@ -258,7 +258,7 @@ static int tcpc_stcpc_cb_recv(tcpc_info_t* tcpc)
 int tcpc_stcpc_cb_conn_ok(tcpc_info_t* tcpc)
 {
 	int ret = STATE_OK;
-	add_stcpc_info_t* stcpc = api_tcpc.info_opt(tcpc);
+	stcpc_opt_t* stcpc = api_tcpc.info_opt(tcpc);
 
 	LOG_INFO("[stcpc]:Connected to [%s:%u].\r\n", api_net.ntoa(&(stcpc->peer_ip)), stcpc->peer_port);
 
@@ -277,7 +277,7 @@ int tcpc_stcpc_cb_conn_ok(tcpc_info_t* tcpc)
 int tcpc_stcpc_cb_conn_err(tcpc_info_t* tcpc)
 {
 	int ret = STATE_OK;
-	add_stcpc_info_t* stcpc = api_tcpc.info_opt(tcpc);
+	stcpc_opt_t* stcpc = api_tcpc.info_opt(tcpc);
 
 	LOG_INFO("[stcpc]:Connect failed.\r\n");
 
@@ -294,7 +294,7 @@ int tcpc_stcpc_cb_conn_err(tcpc_info_t* tcpc)
 //连接断开
 int tcpc_stcpc_cb_disconn(tcpc_info_t* tcpc)
 {
-	//add_stcpc_info_t* stcpc = api_tcpc.info_opt(tcpc);
+	//stcpc_opt_t* stcpc = api_tcpc.info_opt(tcpc);
 
 	LOG_INFO("[stcpc]:Peer disconnect.\r\n");
 
@@ -423,7 +423,7 @@ int main(int argc, char* argv[])
 	size_t js_len;
 
 	tcpc_info_t* tcpc_inf = NULL;
-	add_stcpc_info_t* stcpc;
+	stcpc_opt_t* stcpc;
 
 	jsmntok_t tk[32];	//180+ bytes
 
@@ -461,9 +461,9 @@ int main(int argc, char* argv[])
 
 	//下面分配资源 并配置之
 
-	tcpc_inf = api_tcpc.info_alloc(sizeof(add_stcpc_info_t));
+	tcpc_inf = api_tcpc.info_alloc(sizeof(stcpc_opt_t));	//这里为 用户数据结构(stcpc_opt_t) 开辟空间，并返回tcpc框架最重要的框架handle
 	if(NULL == tcpc_inf)goto load_abort;
-	stcpc = api_tcpc.info_opt(tcpc_inf);
+	stcpc = api_tcpc.info_opt(tcpc_inf);	//通过框架handle获取 用户数据结构的指针
 
 	u16_t local_port;
 	jsmntok_t *jt;
@@ -543,7 +543,7 @@ int __ADDON_EXPORT__ JSON_FACTORY(status)(char*arg, int len, fp_consumer_generic
 	int n, size = sizeof(buf);
 
 	tcpc_info_t* tcpc_inf;
-	add_stcpc_info_t* stcpc;
+	stcpc_opt_t* stcpc;
 
 	tcpc_inf = (tcpc_info_t*)api_nb.find("stcpc");
 

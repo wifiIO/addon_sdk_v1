@@ -360,3 +360,25 @@ load_abort:
 
 
 
+
+
+//httpd½Ó¿Ú  Êä³ö json
+/*
+GET http://192.168.1.105/logic/wifiIO/invoke?target=lighting.status
+
+{"state":[12,34,45,0,99...]}
+
+*/
+
+
+int __ADDON_EXPORT__ JSON_FACTORY(status)(char*arg, int len, fp_consumer_generic consumer, void *ctx)
+{
+	char buf[128];
+	int n, size = sizeof(buf);
+
+	n = 0;
+	n += utl.snprintf(buf + n, size-n, "{\"state\":[%u,%u,%u,%u,%u,%u,%u,%u]}", dev[0].Vfrom, dev[1].Vfrom, dev[2].Vfrom, dev[3].Vfrom, dev[4].Vfrom, dev[5].Vfrom, dev[6].Vfrom, dev[7].Vfrom);
+	return  consumer(ctx, (u8_t*)buf, n);
+}
+
+
