@@ -1,18 +1,64 @@
-ï»¿#çº¢å¤–å‘å°„: åˆçº§demo
+#ºìÍâ·¢ÉäÓë½ÓÊÕ
+
+**ÎÄµµ´ó¸Ù**
+
+- [¸ÅÊö](#overview)
+- [ÈçºÎ²Ù×÷Ó²¼þ](#HardwareHowTo)
+- [ÈçºÎÊ¹ÓÃ±¾³ÌÐò](#SoftwareHowTo)
+- [ÈçºÎ²Ù×÷ÔÆ¶Ë](#CloudHowTo)
+- [±¸×¢](#notes)
+- [ÒÀÀµ](#dependency)
 
 
-##æ¦‚è¿°
+<a name="overview"></a>
+##¸ÅÊö
 
-è¿™ä¸ªæ˜¯å°è¯•é©±åŠ¨çº¢å¤–å‘å°„ç®¡çš„æºä»£ç ã€‚
+Õâ¸öÊÇ³¢ÊÔÇý¶¯ºìÍâ·¢Éä¹ÜµÄÔ´´úÂë¡£
 
-éžå¸¸ç®€å•çš„ä¸€ä¸ªæµ‹è¯•ç¨‹åºï¼Œå¯ä»¥é—´æ­‡å‘é€38Kè„‰å†²ã€‚
+¸ÃÑÝÊ¾²ÉÓÃÓ²¼þ¶¨Ê±Æ÷¼ÆÊ±µÄ·½Ê½²âÁ¿Âö¿í£¬ÖØ·Å¹ý³ÌÊ¹ÓÃÓ²PWMÊä³ö38KÔØ²¨£¬Í¨¶Ï·½Ê½ÖØ·ÅºìÍâÂö¿í¡£
 
-å¯ä»¥ä½¿çº¢å¤–æŽ¥æ”¶æ¨¡å—è¾“å‡ºç›¸åº”çš„æ³¢å½¢ã€‚
+
+<a name="HardwareHowTo"></a>
+##ÈçºÎ²Ù×÷Ó²¼þ
+
+²âÊÔÊ¹ÓÃµÄÓ²¼þÄ£¿éÈçÏÂÍ¼£º
+
+![ir_module](../../addons_img/ir_trans_recv.jpg)
+
+ºìÍâÑ§Ï°Ê¹ÓÃµÄÊÇ Ä£¿éµÄ IO01 Òý½Å£¬¿ÉÒÔ½«ºìÍâÄ£¿é±ê¼ÇRµÄÒý½ÅÁ¬½Óµ½ wifiIOµÄIO1¡£
+
+Ä£¿éµ×²¿IO01Á¬½ÓµÄLEDµÆ£¬ÔÚ½ÓÊÕµ½Ò£¿ØÆ÷·¢³öµÄÐÅºÅÊ±£¬LED»áÉÁË¸£»
+Ä£¿éÖ÷¶¯·¢ËÍºìÍâÐÅºÅÊ±£¬ÓÉÓÚºìÍâ¹âÏßµÄ·´À¡£¬¸ÃLEDÒ²»áÉÁË¸¡£½èÓÃÕâ¸öÌØÕ÷¿ÉÒÔ¹Û²ìºìÍâ½ÓÊÕ¡¢·¢ËÍ×´¿ö¡£
+
+·¢ËÍÊ¹ÓÃµÄÊÇIO03Òý½Å£¬¿ÉÒÔÁ¬½ÓºìÍâÄ£¿é±ê¼ÇTµÄÒý½Å¡££¨Òý½ÅÁ¬½ÓÒÀÀµÓÚ´úÂëÖÐ¶¨Òå£¬ÓÃ»§×îºÃÄÜ×ÔÐÐcheck´úÂëÖÐÊ¹ÓÃÒý½ÅµÄºê¶¨Òå£©
+
+<a name="SoftwareHowTo"></a>
+##ÈçºÎÊ¹ÓÃ±¾³ÌÐò
+
+Õâ¸öÊ¾Àý£¬±àÒë±ã¿ÉÒÔÔËÐÐ¡£
+½¨ÒéÓÃ»§Ê¹ÓÃ3.3VµÄUSB×ª TTL´®¿ÚÄ£¿é£¬Á¬½ÓwifiIOµÄUART1£¨IO09 IO10£¬ @115200buadrate£©£¬Èç´Ë¿ÉÒÔµÃµ½Ö±¹ÛµÄ±àÂëÂö¿í²âÁ¿Êý¾Ý¡£
+
+³ÌÐòÔËÐÐ»úÖÆºÜ¼òµ¥£¬µÈºòÑ§Ï°Íâ²¿µÄÒ£¿ØÆ÷ºìÍâÐÅºÅ£¬Ò»µ©²É¼¯µ½µÈºò5sºó£¬ÔÙ·¢Éä³öÀ´£¬ÀàËÆÒ»¸öÒ£¿ØÑÓÊ±»Ø·Å¹¦ÄÜ¡£
+
+
+
+<a name="CloudHowTo"></a>
+##ÈçºÎ²Ù×÷ÔÆ¶Ë
+ÎÞÐè
+
+<a name="notes"></a>
+##±¸×¢
+ÎÞ
+
+<a name="dependency"></a>
+##ÒÀÀµ
+ÎÞ
+
 
 ****
+¸ü¶àÏ¸½ÚÇë²Î¿¼Ô´´úÂë¡£
 
-æ›´å¤šç»†èŠ‚è¯·å‚è€ƒæºä»£ç ã€‚
+20131221
+ÎÊÌâºÍ½¨ÒéÇëemail: dy@wifi.io 
 
-20131006
-é—®é¢˜å’Œå»ºè®®è¯·email: dy@wifi.io 
 

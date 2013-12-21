@@ -27,7 +27,7 @@ main函数中定义了两个引脚分别作为SDA和SCL，根据代码定义连�
 
 点击发送，便可以看到LCD变化。这个演示了通过模块的http服务实现JSON RPC的调用。
 
-![RGB_LED](../../addons_img/lcdi2c_web_test.jpg)
+![LCDI2C](../../addons_img/lcdi2c_web_test.jpg)
 
 ###远程控制
 

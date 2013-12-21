@@ -180,6 +180,9 @@ $(document).ready(
 	function sys_cfg_check_dport(msg)
 	{
 		var item_val = $("#cfg_text_net_dport input").val();
+		
+		if(item_val == "")
+			$("#cfg_text_net_dport input").val(0);
 	
 		if(item_val != "" && //可以留空
 			integer_check(item_val) < 0 || parseInt(item_val) > 65535 || parseInt(item_val) < 0){

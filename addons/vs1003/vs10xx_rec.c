@@ -897,14 +897,14 @@ void adpcm_record_mode(void)
   sampleRate = 4*12288000/(256*divReg);
 
   VS_WR_Cmd(SCI_RECRATE,   divReg);
-  VS_WR_Cmd(SCI_RECGAIN,        0); // 1024 = gain 1, 0 = AGC
+  VS_WR_Cmd(SCI_RECGAIN,   0); // 1024 = gain 1, 0 = AGC
 
 
   Set32(adpcmHeader+24, sampleRate);
   Set32(adpcmHeader+28, (u32_t)sampleRate*256/505);
 
   // Start the encoder
-  VS_WR_Cmd(SCI_MODE, VS_RD_Reg(SCI_MODE) | SM_ADPCM | SM_ADPCM_HP | SM_RESET);
+  VS_WR_Cmd(SCI_MODE, VS_RD_Reg(SCI_MODE) | SM_ADPCM | SM_ADPCM_HP | SM_RESET);//
 
 }
 
@@ -931,7 +931,7 @@ void VS_Record_adpcm(void)
 	lasttime = api_os.tick_now();
 
 	//Â¼Òô10s
-	while(api_os.tick_elapsed(lasttime) < 5000){
+	while(api_os.tick_elapsed(lasttime) < 10000){
 		u8_t recbuf[512];
 
 		if (VS_RD_Reg(SCI_RECWORDS) > 512) {
