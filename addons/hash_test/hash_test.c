@@ -2,7 +2,7 @@
  * @file			hash_test.c
  * @brief			hash测试程序
  *	对字串进行hash计算，加密结果可以比对 注释结果
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

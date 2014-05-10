@@ -3,7 +3,7 @@
  * @file			max7219.c
  * @brief			驱动max7219的点阵模块
  *					淘宝有售：http://item.taobao.com/item.htm?spm=0.0.0.0.4mlPfZ&id=22058276355
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

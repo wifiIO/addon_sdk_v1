@@ -4,7 +4,7 @@
  * @brief			Pulse Width Code Language Âö¿í±àÂëÃèÊöÓïÑÔ
  *
  *					ÏêÇé²é¿´read.md
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

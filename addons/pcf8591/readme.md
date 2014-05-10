@@ -23,6 +23,6 @@ pcf8951 是IIC接口的数模/模数转换器，有4路AD和1路DA，便宜通�
 更多细节请参考源代码。
 
 20131006
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 
 

@@ -4,7 +4,7 @@
  * @brief			tcp客户端演示例程
  *	
  *	
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

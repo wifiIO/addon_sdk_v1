@@ -434,7 +434,7 @@ static int serial_json_cfg(serial_cfg_t* cfg, const char* js, size_t js_len, jsm
 
 	if(STATE_OK != jsmn.key2val_uint(js, tk, "baud", &cfg->baudrate)){
 		LOG_WARN("Default baudrate.\r\n");
-		cfg->baudrate = 115200;	//default
+		cfg->baudrate = 9600;	//default
 	}
 
 	if(STATE_OK != jsmn.key2val_str(js, tk, "bits", str,  sizeof(str), (size_t*)&u32_tmp)){

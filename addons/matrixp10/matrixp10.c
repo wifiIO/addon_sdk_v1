@@ -2,7 +2,7 @@
  * @file			matrixp10.c
  * @brief			驱动p10单元板
  *					淘宝有售：http://item.taobao.com/item.htm?spm=a1z09.5.0.0.DzRqoH&id=10843524318
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

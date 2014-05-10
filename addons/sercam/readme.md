@@ -57,4 +57,4 @@ httpd服务（参见代码中main函数的实现）
 20131014
 
 ****
-问题和建议可以email: dy@wifi.io 
+问题和建议可以email: yizuoshe@gmail.com 

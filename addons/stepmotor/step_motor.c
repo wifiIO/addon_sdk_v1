@@ -3,7 +3,7 @@
  * @brief			wifiIO驱动步进电机
  *	驱动电机型号是28BYJ-48
  *	淘宝有售: http://item.taobao.com/item.htm?id=6895887673
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

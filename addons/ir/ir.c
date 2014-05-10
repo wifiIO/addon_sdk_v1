@@ -5,7 +5,7 @@
  *	非常简单的一个测试程序，可以间歇发送38K脉冲。
  *	可以使红外接收模块输出相应的波形。
  *	实际上，使用PWM输出38K更加简单
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 #include "include.h"

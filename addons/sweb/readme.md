@@ -119,6 +119,6 @@ wifiIO模块支持URL编解码，利用这种能力，可以在浏览器和串�
 更多细节请参考源代码。
 
 20131006
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 
 

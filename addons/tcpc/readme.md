@@ -25,6 +25,6 @@ tcpc是一个tcp客户端应用程序实现演示，其使用了模块自带的t
 更多细节请参考源代码。
 
 20131025
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 
 

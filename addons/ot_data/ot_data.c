@@ -3,7 +3,7 @@
  * @brief			wifiIO读取温湿度传感器DHT11上传云端
  *	
  *	
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 #include "include.h"

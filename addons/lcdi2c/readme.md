@@ -51,5 +51,5 @@ main函数中定义了两个引脚分别作为SDA和SCL，根据代码定义连�
 更多细节请参考源代码。
 
 20131006
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 

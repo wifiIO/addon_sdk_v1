@@ -4,7 +4,7 @@
  * @brief			vs10xx Â¼Òô´úÂë
  *	
  *	
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

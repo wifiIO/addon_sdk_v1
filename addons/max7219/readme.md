@@ -48,5 +48,5 @@ http://192.168.1.xxx/app/max7219/index.htm
 更多细节请参考源代码。
 
 20131006
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 

@@ -59,6 +59,6 @@
 更多细节请参考源代码。
 
 20131221
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 
 

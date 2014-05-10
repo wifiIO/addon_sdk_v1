@@ -4,7 +4,7 @@
  * @brief			串口转tcp服务器
  *	
  *	
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 #include "include.h"

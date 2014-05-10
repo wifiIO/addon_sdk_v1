@@ -4,7 +4,7 @@
  *					http://www.csdn.net/article/2013-08-25/2816687-xiaomi-HAXLR8on-in-shenzhen
  *					http://www.csdn.net/article/2013-08-28/2816722-Hardware-Hackathon-Documentary
  *					http://wifi.io/blog.php?id=523abac3a4c32057613ee44c
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

@@ -4,7 +4,7 @@
  * @brief			wifiIO抓娃娃机程序
  *	这个是wifi.io体验区抓娃娃机的addon源代码，http://wifi.io/demos.php
  *	wifiIO模组通过六个IO口控制六组继电器实现对原先三个双刀三掷开关的替代，实现了将娃娃机改造成为云端操控的目的
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

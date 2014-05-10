@@ -4,7 +4,7 @@
  * @brief			mp3解码模块驱动代码
  *	
  *	
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

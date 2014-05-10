@@ -4,7 +4,7 @@
  * @brief			串口转tcp客户端
  *	
  *	
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

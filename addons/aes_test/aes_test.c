@@ -3,7 +3,7 @@
  * @brief			AES加密测试程序
  *	对文件进行AES加密，加密结果可以比对openssl加密结果
  *	openssl.exe enc -aes-128-cbc -in file_in -K 0123456789ABCDEF0123456789ABCDEF -iv FEDCBA9876543210FEDCBA9876543210 -out file_out
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

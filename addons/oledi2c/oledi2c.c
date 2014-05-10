@@ -7,7 +7,7 @@
  *  https://github.com/mbedmicro/mbed/blob/master/libraries/mbed/common/I2C.cpp
  *  http://www.adafruit.com/datasheets/SSD1306.pdf
 
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

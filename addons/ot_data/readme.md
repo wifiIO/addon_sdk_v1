@@ -79,5 +79,5 @@ wifi.io还提供了转发服务forward，用户可以使用类似下面的代码
 更多细节请参考源代码。
 
 20131006
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 

@@ -347,4 +347,4 @@ PWCL能够实现目前几乎全部的类2262编码和红外编码的描述，可
 更多细节请参考源代码。
 
 20131109
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 

@@ -14,5 +14,5 @@ hash结果需要通过控制台看到。
 更多细节请参考源代码。
 
 20131027
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 

@@ -16,5 +16,5 @@ wifiIO模组通过六个IO口控制六组继电器实现对原先三个双刀三
 更多细节请参考源代码。
 
 20131006
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 

@@ -35,6 +35,6 @@ stcpc.add运行初需要读取“/app/stcpc/cfg.json”（看代码main函数）
 更多细节请参考源代码。
 
 20131006
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 
 

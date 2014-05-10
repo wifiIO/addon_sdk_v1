@@ -4,7 +4,7 @@
  * @brief			温湿度传感器DHT11测试程序
  *	驱动DHT11，并且提供读取的通用接口。
  *	
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

@@ -28,7 +28,7 @@ vs1003就不用多说了吧。只说两点，第一这个可以解mp3；第二�
 
 其他7根如下连接：
 
-MOSI： IO15
+MISO： IO15
 
 MOSI： IO16
 
@@ -75,4 +75,4 @@ RST： IO13
 更多细节请参考源代码。
 
 20131109
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 

@@ -5,7 +5,7 @@
  * @brief			Çı¶¯´®¿ÚÉãÏñÍ·
  *	
  *	
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

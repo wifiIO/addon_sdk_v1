@@ -44,5 +44,5 @@ http://learn.adafruit.com/32x16-32x32-rgb-led-matrix?view=all
 更多细节请参考源代码。
 
 20131006
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 

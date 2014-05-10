@@ -5,7 +5,7 @@
  *					另外，重放过程使用硬PWM输出38K载波，通断方式输出遥控编码
  *
  *	
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

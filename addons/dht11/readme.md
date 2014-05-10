@@ -71,5 +71,5 @@ JSON_RPC委托接口，在示例 helloworld 中有说明，请移步阅读。
 更多细节请参考源代码。
 
 20131006
-问题和建议请email: dy@wifi.io 
+问题和建议请email: yizuoshe@gmail.com 
 

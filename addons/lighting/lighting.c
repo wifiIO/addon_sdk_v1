@@ -4,7 +4,7 @@
  * @brief			wifiIOÇý¶¯ledµÄ³ÌÐò
  *	
  *	
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

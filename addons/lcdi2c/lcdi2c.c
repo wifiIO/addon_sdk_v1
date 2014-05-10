@@ -4,7 +4,7 @@
  * @brief			wifiIO驱动IIC LCD的测试程序
  *	main函数中定义了两个引脚分别作为SDA和SCL 连接好硬件。将程序以"lcd"的名称运行
  *	可以看到LCD 显示文字，同时也可以使用模块web界面 委托接口调试
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 

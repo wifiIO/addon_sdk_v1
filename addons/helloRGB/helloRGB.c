@@ -3,7 +3,7 @@
  * @brief			wifiIO测试程序-控制全彩LED灯
  *	驱动RGB LED，实现全彩灯的控制。全彩LED是采用3路PWM来实现RGB三原色的。
  *	采用了模块上三根有PWM功能的IO引脚，具体定义见代码中的宏定义。
- * @author			dy@wifi.io
+ * @author			yizuoshe@gmail.com
 */
 
 #include "include.h"
